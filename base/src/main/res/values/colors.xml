@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="theme_color">#FB7299</color>
+    <color name="dividing_line">#DEDEDE</color>
+    <color name="bg_black_trans_40">#40000000</color>
+    <color name="bg_label">#FFF1EE</color>
+    <color name="bg_black_90">#909090</color>
+    <color name="bg_F4">#F4F4F4</color>
+    <color name="text_black_99">#999999</color>
+    <color name="text_black_90">#909090</color>
+    <color name="text_label">#E58566</color>
+
+
+
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+
+
+</resources>

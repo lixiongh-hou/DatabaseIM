@@ -13,4 +13,32 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <!--欢迎页样式-->
+    <style name="AppTheme_Welcome" parent="Theme.AppCompat.Light.NoActionBar">
+        // 标题栏颜色
+        <item name="colorPrimary">@color/theme_color</item>
+        // 状态栏颜色
+        <item name="colorPrimaryDark">@color/theme_color</item>
+        // 输入框游标颜色
+        <item name="colorAccent">@color/theme_color</item>
+        //无标题
+        <item name="android:windowNoTitle">true</item>
+        //是否有遮盖
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+    <!--全局样式-->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        // 标题栏颜色
+        <item name="colorPrimary">@color/theme_color</item>
+        // 状态栏颜色
+        <item name="colorPrimaryDark">@color/theme_color</item>
+        // 输入框游标颜色
+        <item name="colorAccent">@color/theme_color</item>
+        //
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="android:background">@null</item>
+
+    </style>
 </resources>

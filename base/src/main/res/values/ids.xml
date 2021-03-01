@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="triggerDelayKey" type="id"/>
+    <item name="triggerLastTimeKey" type="id"/>
+
+    <item name="mPullRefreshLayout" type="id"/>
+    <item name="mPullRefreshView" type="id"/>
+
+    <!--Glide使用时，设置ImageView的Tag-->
+    <item name="glide_img_tag" type="id" />
+</resources>

@@ -1,0 +1,100 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    dataBinding {
+        enabled = true
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    api 'androidx.core:core-ktx:1.3.2'
+    api 'androidx.appcompat:appcompat:1.2.0'
+    api 'com.google.android.material:material:1.2.1'
+    api 'androidx.constraintlayout:constraintlayout:2.0.4'
+    api 'androidx.navigation:navigation-fragment-ktx:2.3.1'
+    api 'androidx.navigation:navigation-ui-ktx:2.3.1'
+
+    //                                       👇 依赖协程核心库
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines"
+    //                                       👇 依赖当前平台所对应的平台库
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines"
+
+    // rxjava+okHttp+retrofit+gson
+    api "io.reactivex.rxjava2:rxjava:2.2.19"
+    api 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    api 'com.google.code.gson:gson:2.8.6'
+    api 'com.squareup.okhttp3:okhttp:4.5.0'
+    api 'com.squareup.retrofit2:retrofit:2.8.1'
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.6.1'
+    api 'com.squareup.retrofit2:converter-gson:2.6.1'
+    api('com.github.ihsanbal:LoggingInterceptor:3.1.0') {
+        exclude group: 'org.json', module: 'json'
+    }
+
+    //room
+    def room_version = "2.2.5"
+    api "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    //刷新核心必须依赖
+    api 'com.scwang.smart:refresh-layout-kernel:2.0.1'
+    api  'com.scwang.smart:refresh-header-classics:2.0.1'    //经典刷新头
+    api  'com.scwang.smart:refresh-footer-classics:2.0.1'    //经典加载
+
+    //Banner
+    api 'com.github.xiaohaibin:XBanner:1.6.6'
+
+    //加载网络图片
+    //https://github.com/coil-kt/coil
+    api("io.coil-kt:coil:1.0.0")
+
+    api "com.github.bumptech.glide:glide:4.11.0"
+    kapt 'com.github.bumptech.glide:compiler:4.11.0'
+
+    //各种状态布局
+    //https://github.com/Zhao-Yan-Yan/MultiStatePage
+    api 'com.github.Zhao-Yan-Yan:MultiStatePage:1.0.9'
+
+    //谷歌官方的布局方式，可以加载在RecyclerView中设置成流式布局
+    api 'com.google.android:flexbox:2.0.1'
+
+
+    api 'net.mikaelzero.mojito:core:1.5.5'
+    //support long image and gif with Sketch
+    api 'net.mikaelzero.mojito:SketchImageFactory:1.5.5'
+    //load with glide
+    api 'net.mikaelzero.mojito:GlideImageLoader:1.5.5'
+
+    //eventBus
+    api 'org.greenrobot:eventbus:3.2.0'
+}

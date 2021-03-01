@@ -1,11 +1,12 @@
 package com.example.im
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import com.example.base.base.BaseActivity
+import com.example.im.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+class MainActivity : BaseActivity<ActivityMainBinding>() {
+    override fun initLayout(): Int = R.layout.activity_main
+
+    override fun initView() {
     }
+
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TaoBaoView">
+        <attr name="ringProgressColor" format="color" />
+        <attr name="ringWidth" format="dimension" />
+        <attr name="ringImage" format="reference" />
+        <attr name="ringMax" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="TabView">
+        <attr name="tabColor" format="color|integer" />
+        <attr name="tabColor_un" format="color|integer" />
+        <attr name="tabImage" format="reference" />
+        <attr name="tabSelectedImage" format="reference" />
+        <attr name="tabTitle" format="string|reference" />
+    </declare-styleable>
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp80"
+    android:gravity="center">
+
+    <com.example.base.view.TaoBaoView
+        android:id="@+id/taoBaoView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:ringMax="100"
+        app:ringWidth="1dp" />
+
+    <TextView
+        android:id="@+id/reTextView"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:gravity="start"
+        android:textColor="@color/text_black_90"
+        android:textSize="12sp" />
+</LinearLayout>
