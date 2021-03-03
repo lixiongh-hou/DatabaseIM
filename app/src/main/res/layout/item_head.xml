@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="url"
+            type="String" />
+        <variable
+            name="love"
+            type="Boolean" />
+        <import type="android.view.View"/>
+    </data>
+
+    <com.example.base.view.SquareRelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/dp5">
+        <ImageView
+            url="@{url}"
+            fillet="@{true}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/love"
+            android:layout_alignParentEnd="true"
+            android:visibility="@{love?View.VISIBLE:View.GONE}"/>
+    </com.example.base.view.SquareRelativeLayout>
+</layout>

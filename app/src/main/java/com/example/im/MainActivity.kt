@@ -1,5 +1,6 @@
 package com.example.im
 
+import android.content.Intent
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -11,9 +12,14 @@ import com.example.im.databinding.ActivityMainBinding
 import com.example.im.home.fragment.HomeFragment
 import com.example.im.mine.fragment.MineFragment
 import com.example.im.newsletter.fragment.NewsletterFragment
+import com.example.im.util.LiveDataBus
 import com.example.im.view.Menu
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
+
+    companion object{
+        const val ADD_CONVERSATION = 0x001
+    }
 
     private val tabFragment by lazy {
         val list: MutableList<Fragment> = ArrayList()
@@ -87,6 +93,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 tabView[i].setXPercentage(1F)
             } else {
                 tabView[i].setXPercentage(0F)
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK){
+            if (requestCode == ADD_CONVERSATION){
+                val info = data?.getStringExtra(Const.INFO)
+                LiveDataBus.liveDataBus.with<String?>("setDataSource").setValue(info)
             }
         }
     }

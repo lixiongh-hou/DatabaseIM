@@ -33,6 +33,16 @@ class ConversationProvider : IConversationProvider {
     }
 
     /**
+     * 设置会话数据源
+     *
+     * @param dataSource
+     */
+    fun addDataSource(dataSource: List<ConversationEntity>) {
+        mDataSource.addAll(dataSource)
+        updateAdapter()
+    }
+
+    /**
      * 删除单个会话数据
      *
      * @param index 会话在数据源集合的索引

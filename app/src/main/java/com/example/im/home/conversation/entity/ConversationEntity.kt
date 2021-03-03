@@ -46,6 +46,11 @@ data class ConversationEntity(
      */
     val lastMessage: PoMessageEntity?
 ) : Serializable, Comparable<ConversationEntity> {
+    /**
+     * 用于再添加会话是否要保存到本地数据库
+     */
+    var saveLocal: Boolean = true
+
     //若是当前对象比目标对象大，则返回1，那么当前对象会排在目标对象的后面
     //
     //若是当前对象比目标对象小，则返回-1，那么当前对象会排在目标对象的后面

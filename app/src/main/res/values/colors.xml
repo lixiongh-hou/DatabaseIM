@@ -11,5 +11,7 @@
     <color name="bubble_color">#95EC69</color>
     <color name="navigation_view_color">#07C160</color>
     <color name="read_dot_bg">#f74c31</color>
+    <color name="pop_color">#404040</color>
+    <color name="pop_state_color">#202020</color>
 
 </resources>

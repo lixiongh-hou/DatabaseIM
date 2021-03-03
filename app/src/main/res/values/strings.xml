@@ -4,4 +4,7 @@
     <string name="home">首页</string>
     <string name="newsletter">通讯录</string>
     <string name="mine">我</string>
+    <string name="confirm">确认</string>
+
+    <string name="add_conversation">添加会话</string>
 </resources>
