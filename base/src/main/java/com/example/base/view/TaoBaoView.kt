@@ -81,7 +81,7 @@ class TaoBaoView @JvmOverloads constructor(
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.TaoBaoView)
         ringProgressColor = typedArray.getColor(
             R.styleable.TaoBaoView_ringProgressColor,
-            ContextCompat.getColor(context, R.color.text_black_90)
+            ContextCompat.getColor(context, R.color.text_tips_color)
         )
         ringWidth = typedArray.getDimension(R.styleable.TaoBaoView_ringWidth, 5F)
         ringMax = typedArray.getInteger(R.styleable.TaoBaoView_ringMax, 50)

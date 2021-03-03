@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.example.im.home.conversation.entity.ConversationEntity" />
+
+        <import type="com.example.im.util.DateTimeUtil"/>
+
+        <import type="android.view.View"/>
+
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/item_left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="14.85dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="0dp"
+        android:background="@{data.top?@color/conversation_top_color:@color/white}">
+
+        <ImageView
+            android:id="@+id/conversation_icon"
+            fillet="@{true}"
+            url="@{data.iconUrl}"
+            android:layout_width="49.35dp"
+            android:layout_height="49.35dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="62.3dp"
+            android:paddingStart="11.43dp"
+            android:paddingTop="1.37dp"
+            android:paddingEnd="18.11dp">
+
+            <TextView
+                android:id="@+id/conversation_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:ellipsize="end"
+                android:gravity="top|left"
+                android:singleLine="true"
+                android:text="@{data.title}"
+                android:textColor="@color/black_font_color"
+                android:textSize="16.3sp"
+                tools:ignore="RtlHardcoded" />
+
+            <TextView
+                android:id="@+id/conversation_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:text="@{DateTimeUtil.getTimeFormatText(data.lastMessageTime)}"
+                android:textColor="@color/text_tips_color"
+                android:textSize="11.14sp"
+                tools:ignore="RelativeOverlap,SmallSp" />
+
+            <!--@信息-->
+            <TextView
+                android:id="@+id/conversation_at_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/view_line"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="15.54dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@color/text_tips_color"
+                android:textSize="12.86sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/conversation_last_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/view_line"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="48dp"
+                android:layout_marginBottom="15.54dp"
+                android:layout_toEndOf="@+id/conversation_at_msg"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@color/text_tips_color"
+                android:textSize="12.86sp"
+                android:text="@{data.lastMessage.extra}"/>
+
+            <com.example.im.view.UnreadCountTextView
+                android:id="@+id/conversation_unread"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/view_line"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="15.54dp"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp10"
+                tools:ignore="SmallSp"
+                android:text="@{data.unRead > 99?`99+`:String.valueOf(data.unRead)}"
+                android:visibility="@{data.unRead > 0?View.VISIBLE:View.GONE}"/>
+
+            <View
+                android:id="@+id/view_line"
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="12dp"
+                android:background="@color/chat_title_line_color" />
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

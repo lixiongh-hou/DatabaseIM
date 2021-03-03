@@ -3,13 +3,13 @@ package com.example.base.base
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.view.WindowManager
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.example.base.R
 import kotlinx.android.synthetic.main.title_view.*
 
 /**
@@ -22,6 +22,15 @@ abstract class BaseActivity<Binding : ViewDataBinding> : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
+            window.statusBarColor = ContextCompat.getColor(this, R.color.status_bar_color)
+            window.navigationBarColor = ContextCompat.getColor(this, R.color.navigation_bar_color)
+            var vis = window.decorView.systemUiVisibility
+            vis = vis or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            vis = vis or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+            window.decorView.systemUiVisibility = vis
+        }
         mBinding = DataBindingUtil.setContentView(this, initLayout())
         initView()
     }
@@ -48,11 +57,18 @@ abstract class BaseActivity<Binding : ViewDataBinding> : AppCompatActivity() {
         }
     }
 
-    fun getLiBar(): LinearLayout {
+    fun getLiBar(): RelativeLayout {
         if (liBar == null) {
             throw NullPointerException("请在对应的布局中加入”<include layout=\"@layout/title_view\"/>标题布局")
         }
         return liBar
+    }
+
+    fun getTitleBack(): ImageView{
+        if (ivTitleBack == null){
+            throw NullPointerException("请在对应的布局中加入”<include layout=\"@layout/title_view\"/>标题布局")
+        }
+        return ivTitleBack
     }
 
     /**
@@ -70,32 +86,21 @@ abstract class BaseActivity<Binding : ViewDataBinding> : AppCompatActivity() {
      * 获取标题左边按钮图标
      */
     fun getIvTitleLift(): ImageView {
-        if (ivTitleLeft == null) {
+        if (ivTitleRight == null) {
             throw NullPointerException("请在对应的布局中加入”<include layout=\"@layout/title_view\"/>标题布局")
         }
-        ivTitleLeft.visibility = View.VISIBLE
-        return ivTitleLeft
-    }
-
-    /**
-     * 获取标题左边文字
-     */
-    fun getTvTitleText(): TextView {
-        if (tvTitleText == null) {
-            throw NullPointerException("请在对应的布局中加入”<include layout=\"@layout/title_view\"/>标题布局")
-        }
-        tvTitleText.visibility = View.VISIBLE
-        return tvTitleText
+        ivTitleRight.visibility = View.VISIBLE
+        return ivTitleRight
     }
 
     /**
      * 获取Tv或Ev文本
      */
-    fun getTvEvString(view: View): String{
-        if (view is TextView){
+    fun getTvEvString(view: View): String {
+        if (view is TextView) {
             return view.text.toString().trim()
         }
-        if (view is EditText){
+        if (view is EditText) {
             return view.text.toString().trim()
         }
         return ""

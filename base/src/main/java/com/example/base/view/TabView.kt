@@ -114,6 +114,7 @@ class TabView constructor(context: Context, @Nullable attrs: AttributeSet) :
 
         // 设置选中图片，透明， 默认着色为灰色
         mSelectedImageView = findViewById(R.id.tab_selected_image)
+        mSelectedDrawable?.setTint(mTargetColor)
         mSelectedDrawable?.alpha = 0
         mSelectedImageView.setImageDrawable(mSelectedDrawable)
     }

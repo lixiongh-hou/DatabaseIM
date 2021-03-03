@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="theme_color">#FB7299</color>
-    <color name="dividing_line">#DEDEDE</color>
-    <color name="bg_black_trans_40">#40000000</color>
-    <color name="bg_label">#FFF1EE</color>
-    <color name="bg_black_90">#909090</color>
-    <color name="bg_F4">#F4F4F4</color>
-    <color name="text_black_99">#999999</color>
-    <color name="text_black_90">#909090</color>
-    <color name="text_label">#E58566</color>
+    <!-- 灰色背景 -->
+    <color name="status_bar_color">#EDEDED</color>
+    <color name="conversation_top_color">#F2F2F2</color>
+    <color name="navigation_bar_color">#F7F7F7</color>
+    <color name="slide_bar_hint_color">#CCCCCC</color>
+    <color name="chat_background_color">#F4F4F4</color>
 
 
+    <!-- 黑色字体-->
+    <color name="black_font_color">#181818</color>
+    <color name="text_tips_color">#A5A5A5</color>
+
+    <!-- 线 -->
+    <color name="chat_title_line_color">#E6E6E6</color>
+    <color name="input_title_line_color">#D2D2D2</color>
 
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>

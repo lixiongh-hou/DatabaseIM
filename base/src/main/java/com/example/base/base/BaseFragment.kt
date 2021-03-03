@@ -5,10 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
@@ -179,11 +176,19 @@ abstract class BaseFragment<Binding : ViewDataBinding, VM : BaseViewModel> : Fra
         }
     }
 
-    fun getLiBar(): LinearLayout {
+    fun getLiBar(): RelativeLayout {
         if (liBar == null) {
             throw NullPointerException("请在对应的布局中加入”<include layout=\"@layout/title_view\"/>标题布局")
         }
         return liBar
+    }
+
+
+    fun getTitleBack(): ImageView{
+        if (ivTitleBack == null){
+            throw NullPointerException("请在对应的布局中加入”<include layout=\"@layout/title_view\"/>标题布局")
+        }
+        return ivTitleBack
     }
 
     /**
@@ -201,22 +206,11 @@ abstract class BaseFragment<Binding : ViewDataBinding, VM : BaseViewModel> : Fra
      * 获取标题左边按钮图标
      */
     fun getIvTitleLift(): ImageView {
-        if (ivTitleLeft == null) {
+        if (ivTitleLift == null) {
             throw NullPointerException("请在对应的布局中加入”<include layout=\"@layout/title_view\"/>标题布局")
         }
-        ivTitleLeft.visibility = View.VISIBLE
-        return ivTitleLeft
-    }
-
-    /**
-     * 获取标题左边文字
-     */
-    fun getTvTitleText(): TextView {
-        if (tvTitleText == null) {
-            throw NullPointerException("请在对应的布局中加入”<include layout=\"@layout/title_view\"/>标题布局")
-        }
-        tvTitleText.visibility = View.VISIBLE
-        return tvTitleText
+        ivTitleLift.visibility = View.VISIBLE
+        return ivTitleRight
     }
 
     /**

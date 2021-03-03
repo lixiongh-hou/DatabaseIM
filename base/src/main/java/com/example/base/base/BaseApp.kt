@@ -21,8 +21,7 @@ import net.mikaelzero.mojito.view.sketch.SketchImageLoadFactory
  *
  * @features ***
  */
-class BaseApp: Application() {
-
+open class BaseApp: Application() {
 
     override fun onCreate() {
         super.onCreate()
@@ -52,7 +51,7 @@ class BaseApp: Application() {
             SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, layout -> // 设置头部和尾部的高度
                 layout.setHeaderHeight(50F).setFooterHeight(50F)
                     // 设置主题颜色
-                    .setPrimaryColorsId(R.color.white, R.color.bg_black_90)
+                    .setPrimaryColorsId(R.color.white, R.color.text_tips_color)
                     // 在内容不满一页的时候，是否可以上拉加载更多
                     .setEnableLoadMoreWhenContentNotFull(true)
                     // 是否在加载更多完成之后滚动内容显示新数据
@@ -73,8 +72,8 @@ class BaseApp: Application() {
                     .setDrawableProgressSize(16F)
                     .setFinishDuration(400)
                     .setTextSizeTitle(14F)
-                    .setAccentColor(ContextCompat.getColor(context, R.color.bg_black_90))
-                    .setPrimaryColor(ContextCompat.getColor(context, R.color.bg_F4))
+                    .setAccentColor(ContextCompat.getColor(context, R.color.text_tips_color))
+                    .setPrimaryColor(ContextCompat.getColor(context, R.color.navigation_bar_color))
             }
         }
     }

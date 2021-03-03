@@ -1,23 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
     <data>
 
+        <variable
+            name="vpAdapter"
+            type="com.example.im.adapter.ViewPager2Adapter" />
+
+        <variable
+            name="activity"
+            type="com.example.im.MainActivity" />
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context=".MainActivity">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World!"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <include layout="@layout/title_view"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/fragNavVp"
+            vpAdapter="@{vpAdapter}"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <View style="@style/dividing_line"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp55"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:background="@color/navigation_bar_color">
+
+            <com.example.base.view.TabView
+                android:id="@+id/mTabView1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="@{()->activity.updateCurrentTab(0)}"
+                app:tabColor="@color/navigation_view_color"
+                app:tabColor_un="@color/black_font_color"
+                app:tabImage="@drawable/weixin_normal"
+                app:tabSelectedImage="@drawable/weixin_pressed"
+                app:tabTitle="@string/home" />
+
+            <com.example.base.view.TabView
+                android:id="@+id/mTabView2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="@{()->activity.updateCurrentTab(1)}"
+                app:tabColor="@color/navigation_view_color"
+                app:tabColor_un="@color/black_font_color"
+                app:tabImage="@drawable/contact_list_normal"
+                app:tabSelectedImage="@drawable/contact_list_pressed"
+                app:tabTitle="@string/newsletter" />
+            <!--            <com.example.base.view.TabView-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_weight="1"-->
+            <!--                app:tabColor="@color/bubble"-->
+            <!--                app:tabImage="@drawable/find_normal"-->
+            <!--                app:tabSelectedImage="@drawable/find_pressed"-->
+            <!--                app:tabTitle="发现"/>-->
+            <com.example.base.view.TabView
+                android:id="@+id/mTabView3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="@{()->activity.updateCurrentTab(2)}"
+                app:tabColor="@color/navigation_view_color"
+                app:tabColor_un="@color/black_font_color"
+                app:tabImage="@drawable/profile_normal"
+                app:tabSelectedImage="@drawable/profile_pressed"
+                app:tabTitle="@string/mine" />
+        </LinearLayout>
+    </LinearLayout>
 </layout>
