@@ -1,11 +1,15 @@
 package com.example.im.home.chat.entity
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
 /**
  * @author 李雄厚
  *
  * @features ***
  */
-data class PoMessageEntity (
+@Entity(tableName = "message")
+data class PoMessageEntity(
     /**
      * 对方ID
      */
@@ -13,7 +17,7 @@ data class PoMessageEntity (
     /**
      * 消息id
      */
-    val msgId: String?,
+    val msgId: String,
     /**
      * 消息类型
      */
@@ -57,8 +61,18 @@ data class PoMessageEntity (
     /**
      * 语音消息是否已读
      */
-    val peerRead: Boolean
-){
+    val peerRead: Boolean,
+    /**
+     * 是否是聊天消息
+     */
+    val chatMessage: Boolean
+) {
+    /**
+     * 主键ID
+     */
+    @PrimaryKey(autoGenerate = true)
+    var keyId: Int = 0
+
     companion object {
         const val MSG_TYPE_MIME = 0x1
 

@@ -53,7 +53,7 @@ class Menu(private val activity: Activity, private val attach: View) {
         // 设置右上角+号显示PopAction
         val menuActions: MutableList<PopMenuAction> = ArrayList()
         var action = PopMenuAction()
-        action.actionName = "添加"
+        action.actionName = "添加会话"
         action.setActionClickListener(popActionClickListener)
         action.iconResId = R.drawable.create_c2c
         menuActions.add(action)

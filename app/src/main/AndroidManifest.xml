@@ -19,6 +19,7 @@
         </activity>
 
         <activity android:name=".home.activity.AddConversationActivity"/>
+        <activity android:name=".home.activity.ChatActivity"/>
     </application>
 
 </manifest>

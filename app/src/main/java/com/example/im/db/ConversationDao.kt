@@ -17,4 +17,16 @@ interface ConversationDao {
 
     @Query("SELECT * FROM conversation")
     fun queryAll(): MutableList<PoConversationEntity>
+
+    /**
+     * 跟新消息未读数量
+     */
+    @Query("UPDATE conversation SET unRead=:unRead WHERE id=:id")
+    fun queryModifyUnread(unRead: Int, id: String)
+
+    /**
+     * 将某个会话置顶
+     */
+    @Query("UPDATE conversation SET top=:top WHERE id=:id")
+    fun queryModifyTop(top: Boolean, id: String)
 }

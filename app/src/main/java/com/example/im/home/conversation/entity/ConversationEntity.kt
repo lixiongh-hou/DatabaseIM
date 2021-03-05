@@ -51,6 +51,22 @@ data class ConversationEntity(
      */
     var saveLocal: Boolean = true
 
+    companion object {
+        //生成一条数据库会话记录
+        fun generatePoConversation(entity: ConversationEntity): PoConversationEntity {
+            return PoConversationEntity(
+                entity.unRead,
+                entity.id,
+                entity.conversationId,
+                entity.iconUrl,
+                entity.title,
+                entity.isGroup,
+                entity.top,
+                entity.lastMessageTime
+            )
+        }
+    }
+
     //若是当前对象比目标对象大，则返回1，那么当前对象会排在目标对象的后面
     //
     //若是当前对象比目标对象小，则返回-1，那么当前对象会排在目标对象的后面

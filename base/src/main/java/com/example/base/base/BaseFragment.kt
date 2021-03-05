@@ -47,7 +47,7 @@ abstract class BaseFragment<Binding : ViewDataBinding, VM : BaseViewModel> : Fra
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activity = context as AppCompatActivity
-        holderBackPressed()
+//        holderBackPressed()
     }
 
     override fun onCreateView(
@@ -171,7 +171,8 @@ abstract class BaseFragment<Binding : ViewDataBinding, VM : BaseViewModel> : Fra
         } else {
             tvTitle.text = title
             ivTitleBack.setOnClickListener {
-                onBackClickListener()
+                requireActivity().finish()
+//                onBackClickListener()
             }
         }
     }

@@ -1,20 +1,21 @@
 package com.example.im.home.activity
 
-import android.app.Activity
 import android.content.Intent
+import android.text.Editable
 import android.text.TextUtils
-import android.util.Log
+import android.text.TextWatcher
+import android.view.View
 import androidx.databinding.ObservableField
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.base.base.BaseActivity
 import com.example.base.base.adapter.BaseAdapter
 import com.example.base.utli.ToastUtil.toast
-import com.example.im.MainActivity
 import com.example.im.R
 import com.example.im.adapter.HeadAdapter
 import com.example.im.databinding.ActivityAddConversationBinding
 import com.example.im.entity.HeadEntity
 import com.example.im.home.chat.entity.PoMessageEntity
+import com.example.im.home.conversation.ConversationManagerKit
 import com.example.im.home.conversation.entity.ConversationEntity
 import com.example.im.util.DataUtil
 import com.google.gson.Gson
@@ -51,7 +52,23 @@ class AddConversationActivity : BaseActivity<ActivityAddConversationBinding>() {
         }
         mBinding.activity = this
         mBinding.save = false
+        mBinding.edtId.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
 
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                for (entity in ConversationManagerKit.mProvider!!.getDataSource()) {
+                    if (entity.id == s.toString()) {
+                        mBinding.textId.visibility = View.VISIBLE
+                    } else {
+                        mBinding.textId.visibility = View.GONE
+                    }
+                }
+            }
+        })
     }
 
 
@@ -60,8 +77,12 @@ class AddConversationActivity : BaseActivity<ActivityAddConversationBinding>() {
     }
 
     fun confirm() {
-        if (TextUtils.isEmpty(id.get())){
+        if (TextUtils.isEmpty(id.get())) {
             "请输入对方ID".toast()
+            return
+        }
+        if (mBinding.textId.visibility == View.VISIBLE) {
+            "数据库中已有相同ID".toast()
             return
         }
         if (TextUtils.isEmpty(name.get())) {
@@ -77,12 +98,16 @@ class AddConversationActivity : BaseActivity<ActivityAddConversationBinding>() {
             return
         }
         val intent = Intent()
-        val entity = ConversationEntity(1, UUID.randomUUID().toString(),
+        val entity = ConversationEntity(
+            1, UUID.randomUUID().toString(),
             id.get()!!, getHead(), name.get()!!,
             false, false, System.currentTimeMillis(),
-            PoMessageEntity(id.get()!!,  UUID.randomUUID().toString(), PoMessageEntity.MSG_TYPE_TEXT,
+            PoMessageEntity(
+                id.get()!!, UUID.randomUUID().toString(), PoMessageEntity.MSG_TYPE_TEXT,
                 PoMessageEntity.MSG_STATUS_SEND_SUCCESS, false, true, "", content.get()!!,
-                getHead(), 0, 0, System.currentTimeMillis(), true))
+                getHead(), 0, 0, System.currentTimeMillis(), true, true
+            )
+        )
         entity.saveLocal = mBinding.save!!
         val info = Gson().toJson(entity)
         intent.putExtra(Const.INFO, info)

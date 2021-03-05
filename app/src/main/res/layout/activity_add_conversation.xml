@@ -43,11 +43,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp13"
-                android:text="*可以是数字,大写字母，_任意组成*"
+                android:text="*可以是数字,大写字母，-任意组成*"
                 android:textColor="@color/read_dot_bg"
                 android:textSize="@dimen/sp10" />
 
+            <TextView
+                android:id="@+id/textId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp13"
+                android:text="*已有相同ID*"
+                android:textColor="@color/navigation_view_color"
+                android:textSize="@dimen/sp10"
+                android:visibility="gone"/>
+
             <EditText
+                android:id="@+id/edtId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/dp13"

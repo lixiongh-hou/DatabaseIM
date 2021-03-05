@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ef3337ffa6f3f61ef7c8b918e005e299",
+    "identityHash": "fa5759f9fb251efe3d48e6024cc934e0",
     "entities": [
       {
         "tableName": "conversation",
@@ -71,12 +71,116 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "message",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`keyId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fromUser` TEXT NOT NULL, `msgId` TEXT NOT NULL, `msgType` INTEGER NOT NULL, `status` INTEGER NOT NULL, `self` INTEGER NOT NULL, `read` INTEGER NOT NULL, `dataPath` TEXT NOT NULL, `extra` TEXT NOT NULL, `faceUrl` TEXT NOT NULL, `imgWidth` INTEGER NOT NULL, `imgHeight` INTEGER NOT NULL, `msgTime` INTEGER NOT NULL, `peerRead` INTEGER NOT NULL, `chatMessage` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "keyId",
+            "columnName": "keyId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fromUser",
+            "columnName": "fromUser",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "msgId",
+            "columnName": "msgId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "msgType",
+            "columnName": "msgType",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "self",
+            "columnName": "self",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "read",
+            "columnName": "read",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dataPath",
+            "columnName": "dataPath",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "extra",
+            "columnName": "extra",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "faceUrl",
+            "columnName": "faceUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imgWidth",
+            "columnName": "imgWidth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imgHeight",
+            "columnName": "imgHeight",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "msgTime",
+            "columnName": "msgTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "peerRead",
+            "columnName": "peerRead",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "chatMessage",
+            "columnName": "chatMessage",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "keyId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ef3337ffa6f3f61ef7c8b918e005e299')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fa5759f9fb251efe3d48e6024cc934e0')"
     ]
   }
 }

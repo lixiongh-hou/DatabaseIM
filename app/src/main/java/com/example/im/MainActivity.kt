@@ -1,7 +1,8 @@
 package com.example.im
 
+import Const
 import android.content.Intent
-import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
@@ -15,9 +16,40 @@ import com.example.im.newsletter.fragment.NewsletterFragment
 import com.example.im.util.LiveDataBus
 import com.example.im.view.Menu
 
+/**
+ * 多少接口回调，怕忘记记一下
+ */
+interface TouchListener {
+    fun setOnTouch(ev: MotionEvent?)
+    fun setOnClick(view: View)
+}
+
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
-    companion object{
+    private var register: TouchListener? = null
+
+    inner class RegisterMyTouchListener : TouchListener {
+        private lateinit var onTouch: (MotionEvent?) -> Unit
+        private lateinit var onClick: (View) -> Unit
+        override fun setOnTouch(ev: MotionEvent?) {
+            onTouch.invoke(ev)
+        }
+
+        override fun setOnClick(view: View) {
+            onClick.invoke(view)
+        }
+
+        fun onTouch(onTouch: (MotionEvent?) -> Unit) {
+            this.onTouch = onTouch
+        }
+
+        fun onClick(onClick: (View) -> Unit) {
+            this.onClick = onClick
+        }
+
+    }
+
+    companion object {
         const val ADD_CONVERSATION = 0x001
     }
 
@@ -99,12 +131,24 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK){
-            if (requestCode == ADD_CONVERSATION){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == ADD_CONVERSATION) {
                 val info = data?.getStringExtra(Const.INFO)
-                LiveDataBus.liveDataBus.with<String?>("setDataSource").setValue(info)
+                LiveDataBus.liveDataBus.with<String?>("saveConversation").setValue(info)
             }
         }
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        //将触摸事件传递给回调函数
+        if (null != register) {
+            register?.setOnTouch(ev)
+        }
+        return super.dispatchTouchEvent(ev)
+    }
+
+    fun registerMyTouchListener(onTouch: RegisterMyTouchListener.() -> Unit) {
+        register = RegisterMyTouchListener().also(onTouch)
     }
 
 }

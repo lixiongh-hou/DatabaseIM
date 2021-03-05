@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="theme_color">#FB7299</color>
+    <color name="theme_color">#07C160</color>
     <!-- 灰色背景 -->
     <color name="status_bar_color">#EDEDED</color>
     <color name="conversation_top_color">#F2F2F2</color>
     <color name="navigation_bar_color">#F7F7F7</color>
     <color name="slide_bar_hint_color">#CCCCCC</color>
     <color name="chat_background_color">#F4F4F4</color>
+    <color name="gray">#DEDEDE</color>
 
 
     <!-- 黑色字体-->
