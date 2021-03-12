@@ -60,6 +60,9 @@ abstract class MessageBaseHolder(itemView: View) : RecyclerView.ViewHolder(itemV
             view = inflater.inflate(R.layout.message_adapter_item_content, parent, false)
             when (viewType) {
                 PoMessageEntity.MSG_TYPE_TEXT -> holder = MessageTextHolder(view)
+                PoMessageEntity.MSG_TYPE_IMAGE,
+                PoMessageEntity.MSG_TYPE_VIDEO,
+                PoMessageEntity.MSG_TYPE_CUSTOM_FACE -> holder = MessageImageHolder(view)
             }
 
             if (holder != null) {

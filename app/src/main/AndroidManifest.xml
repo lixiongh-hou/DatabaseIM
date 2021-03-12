@@ -19,7 +19,20 @@
         </activity>
 
         <activity android:name=".home.activity.AddConversationActivity"/>
+        <activity android:name=".home.activity.AddUserActivity"/>
         <activity android:name=".home.activity.ChatActivity"/>
+        <activity android:name=".SetUpActivity"/>
+
+
+        <provider
+            android:name=".util.TUIKitFileProvider"
+            android:authorities="com.example.im.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths_public"/>
+        </provider>
     </application>
 
 </manifest>

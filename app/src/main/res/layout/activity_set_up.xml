@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data></data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/status_bar_color"
+        android:orientation="vertical"
+        tools:context=".SetUpActivity">
+
+        <include layout="@layout/title_view" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <com.example.im.view.CommonLinearLayout
+                android:id="@+id/firstChatRefreshTime"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp60"
+                app:common_title="首次进入聊天刷新" />
+
+            <View
+                style="@style/dividing_line"
+                android:layout_marginStart="@dimen/dp15" />
+
+            <com.example.im.view.CommonLinearLayout
+                android:id="@+id/pullRefreshTime"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp60"
+                app:common_title="下拉刷新时间" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/sp10"
+                android:background="@color/status_bar_color"/>
+
+            <com.example.im.view.CommonLinearLayout
+                android:id="@+id/msgSuccessOrFailure"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp60"
+                app:common_title="消息失败-成功"
+                app:common_isSwitch="true"/>
+
+            <View
+                style="@style/dividing_line"
+                android:layout_marginStart="@dimen/dp15" />
+
+            <com.example.im.view.CommonLinearLayout
+                android:id="@+id/localMsg"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp60"
+                app:common_title="消息保存本地"
+                app:common_isSwitch="true"/>
+
+            <View
+                style="@style/dividing_line"
+                android:layout_marginStart="@dimen/dp15" />
+
+            <com.example.im.view.CommonLinearLayout
+                android:id="@+id/deleteMessage"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp60"
+                app:common_title="删除本地消息"
+                app:common_isSwitch="true"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/sp10"
+                android:background="@color/status_bar_color"/>
+
+            <com.example.im.view.CommonLinearLayout
+                android:id="@+id/revokeMessageTime"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp60"
+                app:common_title="撤回消息时间" />
+            <View
+                style="@style/dividing_line"
+                android:layout_marginStart="@dimen/dp15" />
+
+            <com.example.im.view.CommonLinearLayout
+                android:id="@+id/revokeMessage"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp60"
+                app:common_title="是否限制撤回消息"
+                app:common_isSwitch="true"/>
+            <View
+                style="@style/dividing_line"
+                android:layout_marginStart="@dimen/dp15" />
+
+            <com.example.im.view.CommonLinearLayout
+                android:id="@+id/revokeMessageLocal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp60"
+                app:common_title="撤回本地消息"
+                app:common_isSwitch="true"/>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

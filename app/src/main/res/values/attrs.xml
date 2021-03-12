@@ -14,4 +14,17 @@
         <attr name="menu_title" format="string" />
         <attr name="icon" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="CommonLinearLayout">
+        <attr name="common_title" format="string"/>
+        <attr name="common_content" format="string"/>
+        <attr name="common_isBack" format="boolean"/>
+        <attr name="common_isSwitch" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="CircleIndicatorView">
+        <attr name="cir_selectColor" format="color"/>
+        <attr name="cir_unSelectColor" format="color"/>
+    </declare-styleable>
+
 </resources>

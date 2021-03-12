@@ -42,6 +42,21 @@ class ChatProvider: IChatProvider {
     }
 
     /**
+     * 更新一条消息
+     */
+    fun updateMessageInfo(message: PoMessageEntity): Boolean {
+        for (i in mDataSource.indices) {
+            if (mDataSource[i].msgId == message.msgId) {
+                mDataSource.removeAt(i)
+                mDataSource.add(i, message)
+                updateAdapter(MessageListAdapter.DATA_CHANGE_TYPE_UPDATE, i)
+                return true
+            }
+        }
+        return false
+    }
+
+    /**
      * 重发消息
      */
     fun resendMessageInfo(message: PoMessageEntity): Boolean{
@@ -57,6 +72,23 @@ class ChatProvider: IChatProvider {
             return false
         }
         return addMessageInfo(message)
+    }
+
+    fun updateMessageRevoked(message: PoMessageEntity): Boolean{
+        for (i in mDataSource.indices){
+            val messageInfo: PoMessageEntity = mDataSource[i]
+            if (messageInfo.msgId == message.msgId) {
+                messageInfo.msgType = PoMessageEntity.MSG_STATUS_REVOKE
+                messageInfo.status = PoMessageEntity.MSG_STATUS_REVOKE
+                updateAdapter(MessageListAdapter.DATA_CHANGE_TYPE_UPDATE, i)
+            }
+        }
+        return false
+    }
+
+    fun removeMessageInfo(messageInfo: PoMessageEntity, index: Int) {
+        mDataSource.remove(messageInfo)
+        updateAdapter(MessageListAdapter.DATA_CHANGE_TYPE_DELETE, index)
     }
 
     private fun updateAdapter(type: Int, data: Int) {

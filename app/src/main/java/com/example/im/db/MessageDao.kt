@@ -29,11 +29,21 @@ interface MessageDao {
     @Query("SELECT count(*) FROM message WHERE fromUser = :fromUser and chatMessage = 1")
     fun queryCount(fromUser: String): Int
 
-
     /**
      * 分页查询数据
      */
     @RawQuery
     fun queryPageMessage(sqLiteQuery: SupportSQLiteQuery): MutableList<PoMessageEntity>
 
+    /**
+     * 删除一条消息
+     */
+    @Query("DELETE FROM message WHERE msgId = :msgId")
+    fun deleteMessage(msgId: String)
+
+    /**
+     * 撤回一条消息
+     */
+    @Query("UPDATE message SET msgType=:msgType , status=:status , extra=:extra , chatMessage=:chatMessage WHERE msgId = :msgId")
+    fun revokeMessage(msgId: String, msgType: Int, status: Int, extra: String, chatMessage: Boolean)
 }

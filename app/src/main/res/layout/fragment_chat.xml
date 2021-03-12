@@ -81,22 +81,39 @@
                         android:textSize="16sp"
                         android:visibility="gone" />
 
-                    <EditText
-                        android:id="@+id/editText"
+                    <LinearLayout
+                        android:id="@+id/editTextLay"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@drawable/selector_edit_focus"
-                        android:gravity="center_vertical"
-                        android:imeOptions="actionSearch"
-                        android:maxLines="5"
-                        android:paddingVertical="@dimen/dp5"
-                        android:paddingStart="8dp"
-                        android:paddingLeft="8dp"
-                        android:paddingEnd="8dp"
-                        android:paddingRight="8dp"
-                        android:textColor="@color/black_font_color"
-                        android:textSize="17sp" />
+                        android:background="@drawable/selector_edit_focus">
+
+                        <TextView
+                            android:id="@+id/editTextTips"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="@dimen/dp5"
+                            android:text="对方:"
+                            android:visibility="gone"
+                            android:textColor="@color/text_tips_color" />
+
+                        <EditText
+                            android:id="@+id/editText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:gravity="center_vertical"
+                            android:imeOptions="actionSearch"
+                            android:maxLines="5"
+                            android:paddingVertical="@dimen/dp5"
+                            android:paddingStart="8dp"
+                            android:paddingLeft="8dp"
+                            android:paddingEnd="8dp"
+                            android:paddingRight="8dp"
+                            android:textColor="@color/black_font_color"
+                            android:textSize="17sp" />
+                    </LinearLayout>
 
                     <ImageView
                         android:id="@+id/emotionBtn"
@@ -157,7 +174,6 @@
 
                 <com.effective.android.panel.view.panel.PanelView
                     android:id="@+id/panel_addition"
-
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/navigation_bar_color"

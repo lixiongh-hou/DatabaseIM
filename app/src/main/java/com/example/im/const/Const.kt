@@ -10,25 +10,13 @@ object Const {
 }
 
 object Field {
-    /**
-     * SP存储名
-     */
-    const val SP_NAME = "WanAndroid"
 
-    /**
-     * 持久化存储的登录状态
-     */
-    const val COOKIE = "Cookie"
-}
-
-object Status {
-    /**
-     * 成功
-     */
-    const val SUCCESS = 0
-
-    /**
-     * 登录失败
-     */
-    const val LOGIN_ERROR = -1001
+    const val FIRST_CHAT_REFRESH_TIME = "firstChatRefreshTime"
+    const val PULL_REFRESH_TIME = "pullRefreshTime"
+    const val MSG_SUCCESS_OR_FAILURE = "msgSuccessOrFailure"
+    const val LOCAL_MSG = "localMsg"
+    const val DELETE_MESSAGE = "deleteMessage"
+    const val REVOKE_MESSAGE_TIME = "revokeMessageTime"
+    const val REVOKE_MESSAGE = "revokeMessage"
+    const val REVOKE_MESSAGE_LOCAL = "revokeMessageLocal"
 }

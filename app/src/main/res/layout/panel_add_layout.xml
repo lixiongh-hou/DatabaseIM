@@ -4,5 +4,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center">
-
+    <com.example.im.view.PanelAddViewPager
+        android:id="@+id/panelAddViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="@dimen/dp40"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center">
+        <com.example.im.view.CircleIndicatorView
+            android:id="@+id/panelAddIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 </LinearLayout>
+

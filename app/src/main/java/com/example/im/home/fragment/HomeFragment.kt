@@ -9,6 +9,7 @@ import com.example.base.base.BaseFragment
 import com.example.im.MainActivity
 import com.example.im.databinding.FragmentHomeBinding
 import com.example.im.home.activity.ChatActivity
+import com.example.im.home.chat.entity.QueryEntry
 import com.example.im.home.conversation.ConversationManagerKit
 import com.example.im.home.conversation.adapter.ConversationListAdapter
 import com.example.im.home.conversation.adapter.IConversationAdapter
@@ -58,8 +59,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             }
         }
         mBinding.conversationList.setOnItemClickListener { _, _, messageInfo ->
+            val entity = QueryEntry(messageInfo.title, messageInfo.id, messageInfo.iconUrl, messageInfo.saveLocal)
             val intent = Intent(requireContext(), ChatActivity::class.java)
-            intent.putExtra(Const.INFO, Gson().toJson(messageInfo))
+            intent.putExtra(Const.INFO, entity)
             startActivity(intent)
         }
         (this.requireActivity() as MainActivity).registerMyTouchListener {
@@ -75,6 +77,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     override fun initData() {
         mModel.loadConversation()
         mModel.success.observe(viewLifecycleOwner, Observer {
+            Log.e("测试", "刷新")
             adapter.setDataProvider(it)
         })
     }

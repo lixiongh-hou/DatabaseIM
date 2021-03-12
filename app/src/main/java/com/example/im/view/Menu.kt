@@ -12,10 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.im.MainActivity
 import com.example.im.R
+import com.example.im.SetUpActivity
 import com.example.im.adapter.PopMenuAdapter
 import com.example.im.entity.PopActionClickListener
 import com.example.im.entity.PopMenuAction
 import com.example.im.home.activity.AddConversationActivity
+import com.example.im.home.activity.AddUserActivity
 import com.google.gson.Gson
 import java.util.*
 
@@ -46,6 +48,15 @@ class Menu(private val activity: Activity, private val attach: View) {
                             MainActivity.ADD_CONVERSATION
                         )
                     }
+                    1 -> {
+                        activity.startActivityForResult(
+                            Intent(activity, AddUserActivity::class.java),
+                            MainActivity.ADD_UER
+                        )
+                    }
+                    2 -> {
+                        activity.startActivity(Intent(activity, SetUpActivity::class.java))
+                    }
                 }
                 mMenuWindow?.dismiss()
             }
@@ -59,13 +70,13 @@ class Menu(private val activity: Activity, private val attach: View) {
         menuActions.add(action)
 
         action = PopMenuAction()
-        action.actionName = "添加"
+        action.actionName = "添加用户"
         action.setActionClickListener(popActionClickListener)
         action.iconResId = R.drawable.create_c2c
         menuActions.add(action)
 
         action = PopMenuAction()
-        action.actionName = "添加"
+        action.actionName = "设置"
         action.setActionClickListener(popActionClickListener)
         action.iconResId = R.drawable.create_c2c
         menuActions.add(action)

@@ -1,4 +1,4 @@
-package com.example.im.newsletter.fragment
+package com.example.im.contact.fragment
 
 import com.example.base.base.BaseFragment
 import com.example.base.base.BaseViewModel
@@ -9,7 +9,7 @@ import com.example.im.databinding.FragmentNewsletterBinding
  *
  * @features ***
  */
-class NewsletterFragment: BaseFragment<FragmentNewsletterBinding, BaseViewModel>() {
+class ContactFragment: BaseFragment<FragmentNewsletterBinding, BaseViewModel>() {
     override fun initView() {
     }
 

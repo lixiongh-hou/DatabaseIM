@@ -63,7 +63,7 @@ data class PoMessageEntity(
      */
     val peerRead: Boolean,
     /**
-     * 是否是聊天消息
+     * 是否是聊天消息,除了提示消息就是聊天消息
      */
     val chatMessage: Boolean
 ) {

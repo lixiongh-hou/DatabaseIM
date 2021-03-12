@@ -12,7 +12,7 @@ import com.example.im.adapter.ViewPager2Adapter
 import com.example.im.databinding.ActivityMainBinding
 import com.example.im.home.fragment.HomeFragment
 import com.example.im.mine.fragment.MineFragment
-import com.example.im.newsletter.fragment.NewsletterFragment
+import com.example.im.contact.fragment.ContactFragment
 import com.example.im.util.LiveDataBus
 import com.example.im.view.Menu
 
@@ -51,12 +51,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     companion object {
         const val ADD_CONVERSATION = 0x001
+        const val ADD_UER = 0x002
     }
 
     private val tabFragment by lazy {
         val list: MutableList<Fragment> = ArrayList()
         list.add(HomeFragment())
-        list.add(NewsletterFragment())
+        list.add(ContactFragment())
         list.add(MineFragment())
         list
     }
@@ -150,5 +151,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     fun registerMyTouchListener(onTouch: RegisterMyTouchListener.() -> Unit) {
         register = RegisterMyTouchListener().also(onTouch)
     }
+
 
 }

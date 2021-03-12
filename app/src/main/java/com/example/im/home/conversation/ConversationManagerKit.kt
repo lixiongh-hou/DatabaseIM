@@ -31,9 +31,7 @@ object ConversationManagerKit {
                             .save(ConversationEntity.generatePoConversation(entity))
                         CommonDatabase.database.messageDao().save(entity.lastMessage!!)
                     }
-                    withContext(Dispatchers.Main) {
-                        loadConversation(null)
-                    }
+                    loadConversation(null)
                 } else {
                     withContext(Dispatchers.Main) {
                         val list: MutableList<ConversationEntity> = ArrayList()
@@ -64,7 +62,7 @@ object ConversationManagerKit {
                         val poMessage =
                             CommonDatabase.database.messageDao().queryFromUserMessage(it.id)
                         val count = CommonDatabase.database.messageDao().queryCount(it.id)
-                        CommonDatabase.database.conversationDao().queryModifyUnread(count, it.id)
+                        CommonDatabase.database.conversationDao().updateModifyUnread(count, it.id)
                         conversation.add(
                             ConversationEntity(
                                 count,
@@ -74,13 +72,15 @@ object ConversationManagerKit {
                                 it.title,
                                 it.isGroup,
                                 it.top,
-                                it.lastMessageTime,
+                                poMessage[poMessage.size - 1].msgTime,
                                 poMessage[poMessage.size - 1]
                             )
                         )
                     }
                 }
-                mProvider?.setDataSource(sortConversations(conversation))
+                withContext(Dispatchers.Main) {
+                    mProvider?.setDataSource(sortConversations(conversation))
+                }
                 success?.invoke(mProvider!!)
             } catch (e: Exception) {
                 Log.e("测试", "加载会话消息错误：$e")
@@ -124,7 +124,7 @@ object ConversationManagerKit {
             GlobalScope.launch(Dispatchers.IO) {
                 try {
                     CommonDatabase.database.conversationDao()
-                        .queryModifyTop(conversation.top, conversation.id)
+                        .updateModifyTop(conversation.top, conversation.id)
                 } catch (e: Exception) {
                     Log.e("测试", "置顶失败:::$e")
                 }
@@ -133,5 +133,12 @@ object ConversationManagerKit {
         mProvider?.setDataSource(sortConversations(mProvider!!.getDataSource()))
     }
 
-
+    /**
+     * 与UI做解绑操作，避免内存泄漏
+     */
+    fun destroyConversation() {
+        if (mProvider != null) {
+            mProvider?.attachAdapter(null)
+        }
+    }
 }

@@ -5,6 +5,74 @@
     <string name="newsletter">通讯录</string>
     <string name="mine">我</string>
     <string name="confirm">确认</string>
+    <string name="set_up">设置</string>
 
+    <string name="add_user">添加用户</string>
     <string name="add_conversation">添加会话</string>
+
+    <string-array name="emotion_filter">
+        <item>[doge]</item>
+        <item>[亲亲]</item>
+        <item>[偷笑]</item>
+        <item>[傲慢]</item>
+        <item>[再见]</item>
+        <item>[冷汗]</item>
+        <item>[卖萌]</item>
+        <item>[发呆]</item>
+        <item>[发怒]</item>
+        <item>[可怜]</item>
+        <item>[可爱]</item>
+        <item>[右哼哼]</item>
+        <item>[吐]</item>
+        <item>[吓]</item>
+        <item>[呲牙]</item>
+        <item>[咒骂]</item>
+        <item>[哈欠]</item>
+        <item>[哭]</item>
+        <item>[嘘]</item>
+        <item>[困]</item>
+        <item>[坏笑]</item>
+        <item>[奋斗]</item>
+        <item>[委屈]</item>
+        <item>[害羞]</item>
+        <item>[察汗]</item>
+        <item>[尴尬]</item>
+        <item>[左哼哼]</item>
+        <item>[得意]</item>
+        <item>[微笑]</item>
+        <item>[快哭了]</item>
+        <item>[悠闲]</item>
+        <item>[惊恐]</item>
+        <item>[惊讶]</item>
+        <item>[憨笑]</item>
+        <item>[托腮]</item>
+        <item>[抓狂]</item>
+        <item>[折磨]</item>
+        <item>[挖鼻]</item>
+        <item>[撇嘴]</item>
+        <item>[敲打]</item>
+        <item>[斜眼笑]</item>
+        <item>[无奈]</item>
+        <item>[晕]</item>
+        <item>[泪奔]</item>
+        <item>[流汗]</item>
+        <item>[流泪]</item>
+        <item>[疑问]</item>
+        <item>[白眼]</item>
+        <item>[眨眼睛]</item>
+        <item>[睡]</item>
+        <item>[笑哭]</item>
+        <item>[糗大了]</item>
+        <item>[色]</item>
+        <item>[衰]</item>
+        <item>[调皮]</item>
+        <item>[鄙视]</item>
+        <item>[酷]</item>
+        <item>[闭嘴]</item>
+        <item>[阴险]</item>
+        <item>[难过]</item>
+        <item>[饥饿]</item>
+        <item>[骷髅]</item>
+        <item>[鼓掌]</item>
+    </string-array>
 </resources>

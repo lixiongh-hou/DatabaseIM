@@ -50,6 +50,8 @@ class MessageListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val msg: PoMessageEntity? = getItem(position)
         val baseHolder = holder as MessageBaseHolder
+        baseHolder.onMessageLongClick(messageLongClick)
+        baseHolder.onUserIconClick(userIconClick)
         when (getItemViewType(position)) {
             MSG_TYPE_HEADER_VIEW -> (baseHolder as MessageHeaderHolder).setLoadingStatus(mLoading)
             PoMessageEntity.MSG_TYPE_TEXT, PoMessageEntity.MSG_TYPE_IMAGE, PoMessageEntity.MSG_TYPE_VIDEO, PoMessageEntity.MSG_TYPE_CUSTOM_FACE, PoMessageEntity.MSG_TYPE_AUDIO, PoMessageEntity.MSG_TYPE_FILE -> {

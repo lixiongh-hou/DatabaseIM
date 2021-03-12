@@ -79,28 +79,22 @@ abstract class MessageContentHolder(itemView: View) : MessageEmptyHolder(itemVie
         }
 
         //聊天气泡的点击事件处理
-        if (messageLongClick != null){
-            msgContentFrame?.setOnLongClickListener {
-                messageLongClick?.invoke(it, position, msg)
-                true
-            }
+        msgContentFrame?.setOnLongClickListener {
+            messageLongClick?.invoke(it, position, msg)
+            true
         }
-        if (userIconClick!= null){
-            leftUserIcon.setOnClickListener {
-                userIconClick?.invoke(it, position, msg)
-            }
-            rightUserIcon.setOnClickListener {
-                userIconClick?.invoke(it, position, msg)
-            }
+        leftUserIcon.setOnClickListener {
+            userIconClick?.invoke(it, position, msg)
+        }
+        rightUserIcon.setOnClickListener {
+            userIconClick?.invoke(it, position, msg)
         }
 
         // 发送状态的设置
         if (msg.status == PoMessageEntity.MSG_STATUS_SEND_FAIL) {
             statusImage.visibility = View.VISIBLE
             msgContentFrame?.setOnClickListener {
-                if (messageLongClick != null) {
-                    messageLongClick?.invoke(msgContentFrame, position, msg)
-                }
+                messageLongClick?.invoke(it, position, msg)
             }
         } else {
             msgContentFrame?.setOnClickListener(null)

@@ -1,8 +1,10 @@
 package com.example.im.home.conversation.entity
 
+import android.util.Log
 import com.example.im.home.conversation.adapter.ConversationListAdapter
 import com.example.im.home.conversation.adapter.IConversationAdapter
 import com.example.im.home.conversation.adapter.IConversationProvider
+import com.google.gson.Gson
 import java.util.ArrayList
 
 /**
@@ -27,6 +29,7 @@ class ConversationProvider : IConversationProvider {
      * @param dataSource
      */
     fun setDataSource(dataSource: List<ConversationEntity>) {
+        Log.e("测试", "dataSource:"+Gson().toJson(dataSource))
         mDataSource.clear()
         mDataSource.addAll(dataSource)
         updateAdapter()

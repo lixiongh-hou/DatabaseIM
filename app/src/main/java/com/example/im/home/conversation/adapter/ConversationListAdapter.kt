@@ -8,6 +8,7 @@ import com.example.base.utli.NonDoubleClick.clickWithTrigger
 import com.example.im.databinding.ConversationAdapterBinding
 import com.example.im.home.conversation.entity.ConversationEntity
 import com.example.im.home.conversation.entity.ConversationProvider
+import com.example.im.util.EmotionManager
 
 /**
  * @author 李雄厚
@@ -55,6 +56,7 @@ class ConversationListAdapter : IConversationAdapter() {
     override fun onBindViewHolder(holder: ConversationCommonHolder, position: Int) {
         holder.binding as ConversationAdapterBinding
         holder.binding.data = mDataSource[position]
+        EmotionManager.handlerEmotionText(holder.binding.conversationLastMsg, mDataSource[position].lastMessage!!.extra, false)
         //设置点击和长按事件
         holder.binding.root.clickWithTrigger {
             mOnItemClickListener?.invoke(it, position, mDataSource[position])

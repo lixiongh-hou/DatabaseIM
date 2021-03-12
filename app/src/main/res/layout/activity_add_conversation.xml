@@ -17,154 +17,162 @@
             type="com.example.im.home.activity.AddConversationActivity" />
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        tools:context=".home.activity.AddConversationActivity">
+        android:orientation="vertical">
 
-        <LinearLayout
+        <include layout="@layout/title_view" />
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:background="@color/white"
+            tools:context=".home.activity.AddConversationActivity">
 
-            <include layout="@layout/title_view" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp13"
-                android:layout_marginTop="@dimen/dp15"
-                android:text="对方ID:"
-                android:textColor="@color/black_font_color"
-                android:textSize="@dimen/sp14" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp13"
-                android:text="*可以是数字,大写字母，-任意组成*"
-                android:textColor="@color/read_dot_bg"
-                android:textSize="@dimen/sp10" />
-
-            <TextView
-                android:id="@+id/textId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp13"
-                android:text="*已有相同ID*"
-                android:textColor="@color/navigation_view_color"
-                android:textSize="@dimen/sp10"
-                android:visibility="gone"/>
-
-            <EditText
-                android:id="@+id/edtId"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dp13"
-                android:layout_marginTop="@dimen/dp5"
-                android:background="@drawable/bj_5dp"
-                android:gravity="center_vertical"
-                android:hint="请输入对方ID"
-                android:inputType="numberDecimal"
-                android:padding="@dimen/dp10"
-                android:text="@={activity.id}"
-                android:textSize="@dimen/sp14" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp13"
-                android:layout_marginTop="@dimen/dp15"
-                android:text="对方名字:"
-                android:textColor="@color/black_font_color"
-                android:textSize="@dimen/sp14" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dp13"
-                android:layout_marginTop="@dimen/dp5"
-                android:background="@drawable/bj_5dp"
-                android:gravity="center_vertical"
-                android:hint="请输入对方名字"
-                android:padding="@dimen/dp10"
-                android:text="@={activity.name}"
-                android:textSize="@dimen/sp14" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp13"
-                android:layout_marginTop="@dimen/dp15"
-                android:text="会话内容:"
-                android:textColor="@color/black_font_color"
-                android:textSize="@dimen/sp14" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dp13"
-                android:layout_marginTop="@dimen/dp5"
-                android:background="@drawable/bj_5dp"
-                android:gravity="center_vertical"
-                android:hint="请输入会话内容"
-                android:padding="@dimen/dp10"
-                android:text="@={activity.content}"
-                android:textSize="@dimen/sp14" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp13"
-                android:layout_marginTop="@dimen/dp15"
-                android:text="对方头像:"
-                android:textColor="@color/black_font_color"
-                android:textSize="@dimen/sp14" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/headRv"
-                rvAdapter="@{adapter}"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp5" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp45"
-                android:layout_marginTop="@dimen/dp15"
-                android:background="@color/chat_background_color"
-                android:paddingHorizontal="@dimen/dp13">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="是否缓存数据库:"
+                    android:layout_marginStart="@dimen/dp13"
+                    android:layout_marginTop="@dimen/dp15"
+                    android:text="对方ID:"
                     android:textColor="@color/black_font_color"
                     android:textSize="@dimen/sp14" />
 
-                <ImageView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:onClick="@{()->activity.isSave()}"
-                    android:src="@{save?@drawable/a4g:@drawable/a4f}" />
-            </RelativeLayout>
+                    android:layout_marginStart="@dimen/dp13"
+                    android:text="*可以是数字,大写字母，-任意组成*"
+                    android:textColor="@color/read_dot_bg"
+                    android:textSize="@dimen/sp10" />
+
+                <TextView
+                    android:id="@+id/textId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp13"
+                    android:text="*已有相同ID*"
+                    android:textColor="@color/navigation_view_color"
+                    android:textSize="@dimen/sp10"
+                    android:visibility="gone" />
+
+                <EditText
+                    android:id="@+id/edtId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp13"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:background="@drawable/bj_5dp"
+                    android:gravity="center_vertical"
+                    android:hint="请输入对方ID"
+                    android:inputType="numberDecimal"
+                    android:padding="@dimen/dp10"
+                    android:text="@={activity.id}"
+                    android:textSize="@dimen/sp14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp13"
+                    android:layout_marginTop="@dimen/dp15"
+                    android:text="对方名字:"
+                    android:textColor="@color/black_font_color"
+                    android:textSize="@dimen/sp14" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp13"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:background="@drawable/bj_5dp"
+                    android:gravity="center_vertical"
+                    android:hint="请输入对方名字"
+                    android:padding="@dimen/dp10"
+                    android:text="@={activity.name}"
+                    android:textSize="@dimen/sp14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp13"
+                    android:layout_marginTop="@dimen/dp15"
+                    android:text="会话内容:"
+                    android:textColor="@color/black_font_color"
+                    android:textSize="@dimen/sp14" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp13"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:background="@drawable/bj_5dp"
+                    android:gravity="center_vertical"
+                    android:hint="请输入会话内容"
+                    android:padding="@dimen/dp10"
+                    android:text="@={activity.content}"
+                    android:textSize="@dimen/sp14" />
 
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dp15"
-                android:layout_marginTop="@dimen/dp30"
-                android:background="@drawable/btn_5dp"
-                android:onClick="@{()->activity.confirm()}"
-                android:text="@string/confirm"
-                android:textColor="@color/white" />
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp13"
+                    android:layout_marginTop="@dimen/dp15"
+                    android:text="对方头像:"
+                    android:textColor="@color/black_font_color"
+                    android:textSize="@dimen/sp14" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/headRv"
+                    rvAdapter="@{adapter}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp5" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp45"
+                    android:layout_marginTop="@dimen/dp15"
+                    android:background="@color/chat_background_color"
+                    android:paddingHorizontal="@dimen/dp13">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="是否缓存数据库:"
+                        android:textColor="@color/black_font_color"
+                        android:textSize="@dimen/sp14" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:onClick="@{()->activity.isSave()}"
+                        android:src="@{save?@drawable/a4g:@drawable/a4f}" />
+                </RelativeLayout>
+
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp15"
+                    android:layout_marginTop="@dimen/dp30"
+                    android:background="@drawable/btn_5dp"
+                    android:onClick="@{()->activity.confirm()}"
+                    android:text="@string/confirm"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+
 
 </layout>

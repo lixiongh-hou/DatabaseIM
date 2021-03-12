@@ -4,6 +4,8 @@ import android.view.View
 import android.widget.TextView
 import com.example.im.R
 import com.example.im.home.chat.entity.PoMessageEntity
+import com.example.im.util.EmotionManager
+import kotlinx.android.synthetic.main.fragment_chat.*
 
 /**
  * @author 李雄厚
@@ -22,7 +24,7 @@ class MessageTextHolder(itemView: View) : MessageContentHolder(itemView) {
     override fun layoutVariableViews(msg: PoMessageEntity?, position: Int) {
         msgBodyText?.visibility = View.VISIBLE
         if (msg?.extra != null){
-            msgBodyText?.text = msg.extra
+            EmotionManager.handlerEmotionText(msgBodyText!!, msg.extra, false)
         }
     }
 }
