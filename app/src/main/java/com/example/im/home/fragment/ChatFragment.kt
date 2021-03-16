@@ -11,6 +11,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
+import android.webkit.MimeTypeMap
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.animation.addListener
@@ -27,19 +28,31 @@ import com.example.im.SetUpActivity
 import com.example.im.databinding.FragmentChatBinding
 import com.example.im.entity.EmotionEntity
 import com.example.im.entity.PopMenuAction
+import com.example.im.home.activity.PersonalInformationActivity
 import com.example.im.home.chat.ChatManagerKit
+import com.example.im.home.chat.adapter.MessageImageHolder
 import com.example.im.home.chat.adapter.MessageListAdapter
 import com.example.im.home.chat.entity.PoMessageEntity
 import com.example.im.home.chat.entity.QueryEntry
 import com.example.im.home.chat.util.MessageUtil
+import com.example.im.home.conversation.ConversationManagerKit
+import com.example.im.home.conversation.entity.ConversationEntity
 import com.example.im.home.model.MessageViewModel
 import com.example.im.util.BackgroundTasks
 import com.example.im.util.EmotionManager
 import com.example.im.util.FileUtil
 import com.example.im.util.SetUpFieldUtil
 import com.example.im.view.PanelAddViewPager
+import com.example.im.view.PanelAddViewPager.Companion.REQUEST_CODE_PHOTO
+import com.example.im.view.PanelAddViewPager.Companion.REQUEST_CODE_VIDEO
 import com.example.im.view.PopupList
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_chat.*
+import net.mikaelzero.mojito.Mojito
+import net.mikaelzero.mojito.impl.CircleIndexIndicator
+import net.mikaelzero.mojito.impl.DefaultPercentProgress
+import net.mikaelzero.mojito.interfaces.IProgress
+import net.mikaelzero.mojito.loader.InstanceLoader
 import java.io.Serializable
 import java.util.*
 
@@ -65,10 +78,6 @@ class ChatFragment : BaseFragment<FragmentChatBinding, MessageViewModel>() {
 
 
     companion object {
-        //我的的头像
-        const val MY_URL =
-            "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=840492371,1920645159&fm=26&gp=0.jpg"
-
         fun instance(info: Serializable) = ChatFragment().apply {
             arguments = Bundle().apply {
                 putSerializable(Const.INFO, info)
@@ -99,7 +108,32 @@ class ChatFragment : BaseFragment<FragmentChatBinding, MessageViewModel>() {
                 }, SetUpFieldUtil.getField().pullRefreshTime ?: 0L)
             }
             mAdapter?.onMessageLongClick { view, position, messageInfo ->
-                showItemPopMenu(position, messageInfo!!, view)
+                if (TextUtils.isEmpty(messageInfo?.dataPath)) {
+                    showItemPopMenu(position, messageInfo!!, view)
+                    return@onMessageLongClick
+                }
+                Mojito.with(requireContext())
+                    .urls(messageInfo!!.dataPath)
+                    .views(view)
+                    .autoLoadTarget(false)
+                    .setProgressLoader(object : InstanceLoader<IProgress> {
+                        override fun providerInstance(): IProgress {
+                            return DefaultPercentProgress()
+                        }
+                    })
+                    .start()
+            }
+            mAdapter?.onUserIconClick { _, _, messageInfo ->
+                val entity = QueryEntry(
+                    if (messageInfo!!.self) "自己" else info!!.title,
+                    info!!.formUser,
+                    messageInfo.faceUrl,
+                    info!!.saveLocal
+                )
+                val str = Gson().toJson(entity)
+                val intent = Intent(requireContext(), PersonalInformationActivity::class.java)
+                intent.putExtra(Const.INFO, str)
+                startActivity(intent)
             }
         }
         mBinding.editText.addTextChangedListener(object : TextWatcher {
@@ -260,6 +294,8 @@ class ChatFragment : BaseFragment<FragmentChatBinding, MessageViewModel>() {
             "聊天消息不能为空".toast()
             return
         }
+        ConversationManagerKit.getConversationCount(info!!, content, editTextTips.visibility == View.GONE
+        )
         ChatManagerKit.saveMessage(
             MessageUtil.sendMessage(
                 info!!.formUser,
@@ -270,6 +306,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding, MessageViewModel>() {
             false,
             info!!.saveLocal
         )
+
         mBinding.editText.setText("")
     }
 
@@ -370,28 +407,79 @@ class ChatFragment : BaseFragment<FragmentChatBinding, MessageViewModel>() {
             })
         }
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == AppCompatActivity.RESULT_OK) {
             when (requestCode) {
-                PanelAddViewPager.REQUEST_CODE_PHOTO -> {
+                REQUEST_CODE_PHOTO -> {
                     val videoPath: String = FileUtil.getPathFromUri(data?.data)
-                    ChatManagerKit.saveMessage(
-                        MessageUtil.buildImageMessage(
-                            data!!.data,
+                    val fileExtension = MimeTypeMap.getFileExtensionFromUrl(videoPath)
+                    val mimeType =
+                        MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension)
+                    Log.e("测试", videoPath)
+                    if (mimeType != null && mimeType.contains("video")) {
+                        val entity = MessageUtil.buildVideoMessage(
                             info!!.formUser,
                             videoPath,
                             editTextTips.visibility == View.GONE,
                             info!!
-                        ),
-                        false,
-                        info!!.saveLocal
-                    )
-                    Log.e("测试", videoPath)
+                        )
+                            ?: return
+                        ChatManagerKit.saveMessage(
+                            entity,
+                            false,
+                            info!!.saveLocal
+                        )
+                    } else {
+                        ChatManagerKit.saveMessage(
+                            MessageUtil.buildImageMessage(
+                                data!!.data, info!!.formUser,
+                                videoPath, editTextTips.visibility == View.GONE, info!!
+                            ),
+                            false,
+                            info!!.saveLocal
+                        )
+                    }
+
+
+                }
+                REQUEST_CODE_VIDEO -> {
+                    Log.e("测试", "路径" + data?.getStringExtra(Const.PATH))
+                    if (data?.getStringExtra(Const.PATH)!!.endsWith(".mp4")) {
+                        val entity = MessageUtil.buildVideoMessage(
+                            info!!.formUser,
+                            data.getStringExtra(Const.PATH)!!,
+                            editTextTips.visibility == View.GONE,
+                            info!!
+                        )
+                            ?: return
+                        ChatManagerKit.saveMessage(
+                            entity,
+                            false,
+                            info!!.saveLocal
+                        )
+                    } else {
+                        ChatManagerKit.saveMessage(
+                            MessageUtil.buildImageMessage(
+                                MessageImageHolder.getMediaUriFromPath(
+                                    requireContext(),
+                                    data.getStringExtra(Const.PATH)!!
+                                ),
+                                info!!.formUser,
+                                data.getStringExtra(Const.PATH)!!,
+                                editTextTips.visibility == View.GONE,
+                                info!!
+                            ),
+                            false,
+                            info!!.saveLocal
+                        )
+                    }
 
                 }
             }
         }
     }
+
     private fun showMore() {
         isAnimation = false
         mBinding.addBtn.visibility = View.VISIBLE

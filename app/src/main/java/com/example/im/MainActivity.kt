@@ -136,6 +136,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             if (requestCode == ADD_CONVERSATION) {
                 val info = data?.getStringExtra(Const.INFO)
                 LiveDataBus.liveDataBus.with<String?>("saveConversation").setValue(info)
+            }else if (requestCode == ADD_UER){
+                val info = data?.getStringExtra(Const.INFO)
+                LiveDataBus.liveDataBus.with<String?>("saveContact").setValue(info)
             }
         }
     }

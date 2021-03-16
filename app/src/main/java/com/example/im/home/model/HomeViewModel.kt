@@ -12,11 +12,11 @@ import com.example.im.home.conversation.entity.ConversationProvider
  */
 class HomeViewModel : BaseViewModel() {
 
-    val success = MutableLiveData<ConversationProvider>()
+    val loadConversation = MutableLiveData<ConversationProvider>()
 
     fun loadConversation() {
         ConversationManagerKit.loadConversation {
-            success.postValue(it)
+            loadConversation.postValue(it)
         }
 
     }

@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import com.example.base.base.BaseFragment
 import com.example.im.MainActivity
 import com.example.im.databinding.FragmentHomeBinding
+import com.example.im.dialog.SelectDialog
 import com.example.im.home.activity.ChatActivity
 import com.example.im.home.chat.entity.QueryEntry
 import com.example.im.home.conversation.ConversationManagerKit
@@ -47,19 +48,33 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                 items(
                     120, if (messageInfo.top) "取消置顶" else "置顶聊天",
                     if (messageInfo.unRead == 0) "设置未读" else "取消未读",
-                    "删除消息"
+                    "删除聊天记录",
+                    "删除消息会话"
                 )
                 show(point)
                 setOnItemClickListener { _, pos ->
                     when (pos) {
                         0 -> ConversationManagerKit.setConversationTop(position, messageInfo)
+                        2 -> SelectDialog.instance("聊天记录会一起删除?")
+                            .setOnclick {
 
+                            }.show(childFragmentManager)
+
+                        3 -> SelectDialog.instance("移除这条会话?")
+                            .setOnclick {
+                                ConversationManagerKit.setConversationDelete(position, messageInfo)
+                            }.show(childFragmentManager)
                     }
                 }
             }
         }
         mBinding.conversationList.setOnItemClickListener { _, _, messageInfo ->
-            val entity = QueryEntry(messageInfo.title, messageInfo.id, messageInfo.iconUrl, messageInfo.saveLocal)
+            val entity = QueryEntry(
+                messageInfo.title,
+                messageInfo.id,
+                messageInfo.iconUrl,
+                messageInfo.saveLocal
+            )
             val intent = Intent(requireContext(), ChatActivity::class.java)
             intent.putExtra(Const.INFO, entity)
             startActivity(intent)
@@ -76,7 +91,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
     override fun initData() {
         mModel.loadConversation()
-        mModel.success.observe(viewLifecycleOwner, Observer {
+        mModel.loadConversation.observe(viewLifecycleOwner, Observer {
             Log.e("测试", "刷新")
             adapter.setDataProvider(it)
         })

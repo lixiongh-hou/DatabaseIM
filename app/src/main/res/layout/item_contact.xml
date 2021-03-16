@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.example.im.contact.entity.ContactEntity" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp60"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="@dimen/dp40"
+            android:layout_height="@dimen/dp40"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp15" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp15"
+            android:layout_toEndOf="@id/avatar"
+            android:text="@{data.nickname}"
+            android:textColor="@color/black_font_color"
+            android:textSize="@dimen/sp16" />
+
+        <View
+            android:id="@+id/line"
+            style="@style/dividing_line"
+            android:layout_alignParentBottom="true" />
+
+    </RelativeLayout>
+</layout>

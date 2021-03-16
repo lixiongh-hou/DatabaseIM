@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +20,7 @@ import com.example.base.base.adapter.BaseAdapter
 import com.example.im.R
 import com.example.im.databinding.ItemPanelAddBinding
 import com.example.im.entity.PopMenuAction
+import com.example.im.home.activity.CameraActivity
 
 
 /**
@@ -87,7 +87,6 @@ class PanelAddViewPager(context: Context, attrs: AttributeSet?) : ViewPager(cont
             recyclerView.adapter = mAdapter
             mAdapter.refreshData(menuItems)
             mAdapter.clickEvent = { data, _, position ->
-                Log.e("测试", "点击$position")
                 val action = menuItems[position]
                 if (action.getActionClickListener() != null) {
                     action.getActionClickListener()?.invoke(position, data)
@@ -159,21 +158,7 @@ class PanelAddViewPager(context: Context, attrs: AttributeSet?) : ViewPager(cont
         action.iconResId = R.drawable.create_c2c
         action.setActionClickListener { _, _ ->
             //动态申请权限
-            if (ContextCompat.checkSelfPermission(
-                    mActivity!!, Manifest.permission
-                        .WRITE_EXTERNAL_STORAGE
-                ) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(
-                    mActivity!!, Manifest.permission
-                        .CAMERA
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                ActivityCompat.requestPermissions(
-                    mActivity!!,
-                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA),
-                    1
-                )
-            } else {
+            if (isAccessPermissions()){
                 //执行启动相册的方法
                 openAlbum()
             }
@@ -184,7 +169,11 @@ class PanelAddViewPager(context: Context, attrs: AttributeSet?) : ViewPager(cont
         action.actionName = "拍摄"
         action.iconResId = R.drawable.create_c2c
         action.setActionClickListener { position, data ->
-
+            //动态申请权限
+            if (isAccessPermissions()) {
+                //执行启动相册的方法
+                openCamera()
+            }
         }
         actions.add(action)
 
@@ -192,14 +181,36 @@ class PanelAddViewPager(context: Context, attrs: AttributeSet?) : ViewPager(cont
         mActions.addAll(actions)
     }
 
+    private fun openCamera() {
+        mFragment?.startActivityForResult(Intent(mActivity, CameraActivity::class.java), REQUEST_CODE_VIDEO)
+    }
+
     private fun openAlbum() {
         val intent = Intent("android.intent.action.GET_CONTENT")
         intent.addCategory(Intent.CATEGORY_OPENABLE)
-        intent.type = "image/*"
+        intent.type = "*/*"
+        val mimeTypes = arrayOf("image/*", "video/*")
+        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
         mFragment?.startActivityForResult(intent, REQUEST_CODE_PHOTO)
+
     }
 
-    companion object{
+    companion object {
         const val REQUEST_CODE_PHOTO = 0x1012
+        const val REQUEST_CODE_VIDEO = 0x1011
+    }
+
+    private fun isAccessPermissions(): Boolean {
+        if (ContextCompat.checkSelfPermission(mActivity!!, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(mActivity!!, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(mActivity!!, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED){
+
+            ActivityCompat.requestPermissions(mActivity!!,
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO),
+                1
+            )
+            return false
+        }
+        return true
     }
 }

@@ -3,6 +3,8 @@ package com.example.im.home.chat.adapter
 import android.content.ContentUris
 import android.content.Context
 import android.database.Cursor
+import android.graphics.Bitmap
+import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.provider.MediaStore
 import android.view.View
@@ -13,12 +15,19 @@ import android.widget.TextView
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.example.base.base.BaseApp
+import com.example.base.utli.ToastUtil.toast
 import com.example.im.R
 import com.example.im.home.chat.entity.PoMessageEntity
+import net.mikaelzero.mojito.Mojito
+import net.mikaelzero.mojito.impl.CircleIndexIndicator
+import net.mikaelzero.mojito.impl.DefaultPercentProgress
+import net.mikaelzero.mojito.interfaces.IProgress
+import net.mikaelzero.mojito.loader.InstanceLoader
 
 
 private const val DEFAULT_MAX_SIZE = 540
 private const val DEFAULT_RADIUS = 10
+
 /**
  * @author 李雄厚
  *
@@ -34,6 +43,9 @@ class MessageImageHolder(itemView: View) : MessageContentHolder(itemView) {
         when (msg?.msgType) {
             PoMessageEntity.MSG_TYPE_IMAGE, PoMessageEntity.MSG_TYPE_IMAGE + 1 -> {
                 performImage(msg, position)
+            }
+            PoMessageEntity.MSG_TYPE_VIDEO, PoMessageEntity.MSG_TYPE_VIDEO + 1 -> {
+                performVideo(msg)
             }
         }
     }
@@ -51,6 +63,9 @@ class MessageImageHolder(itemView: View) : MessageContentHolder(itemView) {
             placeholder(R.drawable.default_head)
             error(R.drawable.default_head)
             transformations(RoundedCornersTransformation(8F))
+        }
+        msgContentFrame?.setOnClickListener {
+            messageLongClick?.invoke(it, position, msg)
         }
     }
 
@@ -79,24 +94,65 @@ class MessageImageHolder(itemView: View) : MessageContentHolder(itemView) {
         return params
     }
 
-    private fun getMediaUriFromPath(context: Context, path: String): Uri? {
-        val mediaUri: Uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-        val cursor: Cursor? = context.contentResolver.query(
-            mediaUri,
-            null,
-            MediaStore.Images.Media.DISPLAY_NAME + "= ?",
-            arrayOf(path.substring(path.lastIndexOf("/") + 1)),
-            null
-        )
-        var uri: Uri? = null
-        if (cursor!!.moveToFirst()) {
-            uri = ContentUris.withAppendedId(
+    companion object {
+        fun getMediaUriFromPath(context: Context, path: String): Uri? {
+            val mediaUri: Uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            val cursor: Cursor? = context.contentResolver.query(
                 mediaUri,
-                cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media._ID))
+                null,
+                MediaStore.Images.Media.DISPLAY_NAME + "= ?",
+                arrayOf(path.substring(path.lastIndexOf("/") + 1)),
+                null
             )
+            var uri: Uri? = null
+            if (cursor!!.moveToFirst()) {
+                uri = ContentUris.withAppendedId(
+                    mediaUri,
+                    cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media._ID))
+                )
+            }
+            cursor.close()
+            return uri
         }
-        cursor.close()
-        return uri
+    }
+
+
+    private fun performVideo(msg: PoMessageEntity) {
+        contentImage?.layoutParams = getImageParams(contentImage!!.layoutParams, msg)
+        resetParentLayout()
+
+        videoPlayBtn?.visibility = View.VISIBLE
+        videoDurationText?.visibility = View.VISIBLE
+        contentImage?.load(firstBitmap(msg.dataPath)) {
+            placeholder(R.drawable.default_head)
+            error(R.drawable.default_head)
+            transformations(RoundedCornersTransformation(8F))
+        }
+        var durations = "00:" + duration(msg.dataPath) / 1000
+        if (duration(msg.dataPath) < 10) {
+            durations = "00:0" + duration(msg.dataPath)
+        }
+        videoDurationText?.text = durations
+
+        msgContentFrame?.setOnClickListener {
+
+        }
+    }
+
+    private fun firstBitmap(videoPath: String): Bitmap? {
+        val media = MediaMetadataRetriever()
+        // videoPath 本地视频的路径
+        media.setDataSource(videoPath)
+        return media.getFrameAtTime(1, MediaMetadataRetriever.OPTION_CLOSEST_SYNC)
+    }
+
+    private fun duration(videoPath: String): Long {
+        val media = MediaMetadataRetriever()
+        // videoPath 本地视频的路径
+        media.setDataSource(videoPath)
+        //时长(毫秒)
+        val sDuration = media.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
+        return sDuration!!.toLong() / 1000
     }
 }
 

@@ -29,4 +29,16 @@ interface ConversationDao {
      */
     @Query("UPDATE conversation SET top=:top WHERE id=:id")
     fun updateModifyTop(top: Boolean, id: String)
+
+    /**
+     * 查询会话数量
+     */
+    @Query("SELECT count(*) FROM conversation WHERE id=:id")
+    fun queryCount(id: String): Int
+
+    /**
+     * 删除一条消息
+     */
+    @Query("DELETE FROM conversation WHERE id = :id")
+    fun deleteConversation(id: String)
 }

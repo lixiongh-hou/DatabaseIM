@@ -1,14 +1,22 @@
 package com.example.im.home.activity
 
+import android.app.Activity
+import android.content.Intent
+import android.text.TextUtils
 import androidx.databinding.ObservableField
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.base.base.BaseActivity
 import com.example.base.base.adapter.BaseAdapter
+import com.example.base.utli.ToastUtil.toast
 import com.example.im.R
 import com.example.im.adapter.HeadAdapter
+import com.example.im.contact.entity.PoContactEntity
 import com.example.im.databinding.ActivityAddUserBinding
 import com.example.im.entity.HeadEntity
+import com.example.im.home.chat.util.ContactKit
 import com.example.im.util.DataUtil
+import com.google.gson.Gson
+import java.util.*
 
 /**
  * @author 李雄厚
@@ -39,13 +47,41 @@ class AddUserActivity : BaseActivity<ActivityAddUserBinding>() {
             adapter.notifyDataSetChanged()
 
         }
+        mBinding.save = false
     }
 
-    fun isSave(){
 
+    fun isSave(){
+        mBinding.save = !mBinding.save!!
+    }
+
+    fun random(){
+        id.set(UUID.randomUUID().toString())
     }
 
     fun confirm(){
+        if (TextUtils.isEmpty(id.get())){
+            "用户ID不能为空".toast()
+            return
+        }
+        if (TextUtils.isEmpty(name.get())){
+            "用户名字不能为空".toast()
+            return
+        }
+        if (!isSelect()){
+            "请选择一个头像".toast()
+            return
+        }
+        val entity = PoContactEntity(id.get()!!, name.get()!!, getHead())
+        entity.saveLocal = mBinding.save!!
+        ContactKit.saveContact(entity) {
+            "保存成功".toast()
+            val info = Gson().toJson(it)
+            val intent = Intent()
+            intent.putExtra(Const.INFO, info)
+            setResult(Activity.RESULT_OK, intent)
+            finish()
+        }
 
     }
 

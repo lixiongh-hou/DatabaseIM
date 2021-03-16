@@ -1,6 +1,7 @@
 package com.example.im.contact.entity
 
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
 /**
@@ -29,4 +30,12 @@ data class PoContactEntity(
      */
     @PrimaryKey(autoGenerate = true)
     var keyId: Int = 0
+
+    /**
+     * 是否保持本地
+     */
+    @Ignore
+    var saveLocal: Boolean = true
+
+
 }

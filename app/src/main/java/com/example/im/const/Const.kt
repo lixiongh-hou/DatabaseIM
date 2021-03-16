@@ -7,6 +7,7 @@
 
 object Const {
     const val INFO = "info"
+    const val PATH = "path"
 }
 
 object Field {
@@ -19,4 +20,8 @@ object Field {
     const val REVOKE_MESSAGE_TIME = "revokeMessageTime"
     const val REVOKE_MESSAGE = "revokeMessage"
     const val REVOKE_MESSAGE_LOCAL = "revokeMessageLocal"
+
+
+    const val HEAD = "head"
+    const val NAME = "name"
 }

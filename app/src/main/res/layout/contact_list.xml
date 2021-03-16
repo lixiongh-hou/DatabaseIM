@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/chat_background_color">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/contactMemberList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"/>
+
+    <com.example.im.contact.view.WeChatIndexBar
+        android:id="@+id/contactIndexBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:textSize="@dimen/sp11"
+        app:barWidth="@dimen/dp20"
+        app:backgroundColor="@color/transparent"
+        app:textColor="@color/black"
+        app:selectTextColor="@color/white"
+        app:hintCircleColor="@color/slide_bar_hint_color"
+        app:hintTextColor="@color/white"
+        android:layout_marginTop="@dimen/dp70"
+        android:layout_marginBottom="@dimen/dp70"/>
+</FrameLayout>

@@ -42,12 +42,12 @@ class Menu(private val activity: Activity, private val attach: View) {
         val popActionClickListener = object : PopActionClickListener {
             override fun invoke(position: Int, data: Any) {
                 when (position) {
-                    0 -> {
-                        activity.startActivityForResult(
-                            Intent(activity, AddConversationActivity::class.java),
-                            MainActivity.ADD_CONVERSATION
-                        )
-                    }
+//                    0 -> {
+//                        activity.startActivityForResult(
+//                            Intent(activity, AddConversationActivity::class.java),
+//                            MainActivity.ADD_CONVERSATION
+//                        )
+//                    }
                     1 -> {
                         activity.startActivityForResult(
                             Intent(activity, AddUserActivity::class.java),

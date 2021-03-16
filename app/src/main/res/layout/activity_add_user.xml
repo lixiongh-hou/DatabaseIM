@@ -62,19 +62,37 @@
                     android:textSize="@dimen/sp10"
                     android:visibility="gone" />
 
-                <EditText
-                    android:id="@+id/edtId"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dp13"
                     android:layout_marginTop="@dimen/dp5"
                     android:background="@drawable/bj_5dp"
-                    android:gravity="center_vertical"
-                    android:hint="请输入对方ID"
-                    android:inputType="numberDecimal"
-                    android:padding="@dimen/dp10"
-                    android:text="@={activity.id}"
-                    android:textSize="@dimen/sp14" />
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/edtId"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:hint="请输入对方ID"
+                        android:digits="1234567890-"
+                        android:padding="@dimen/dp10"
+                        android:text="@={activity.id}"
+                        android:textSize="@dimen/sp14" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/selector_btn_ent_bg"
+                        android:gravity="center"
+                        android:onClick="@{()->activity.random()}"
+                        android:paddingHorizontal="@dimen/dp15"
+                        android:text="随机"
+                        android:textColor="@color/white" />
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"

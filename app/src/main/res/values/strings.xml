@@ -5,10 +5,15 @@
     <string name="newsletter">通讯录</string>
     <string name="mine">我</string>
     <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
     <string name="set_up">设置</string>
 
     <string name="add_user">添加用户</string>
     <string name="add_conversation">添加会话</string>
+
+    <string name="new_friend" translatable="false">新的联系人</string>
+    <string name="group" translatable="false">我的群聊</string>
+    <string name="blacklist" translatable="false">黑名单</string>
 
     <string-array name="emotion_filter">
         <item>[doge]</item>
@@ -75,4 +80,36 @@
         <item>[骷髅]</item>
         <item>[鼓掌]</item>
     </string-array>
+
+    <array name="slide_bar_value_list">
+        <item>↑</item>
+        <item>\u2606</item>
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+        <item>E</item>
+        <item>F</item>
+        <item>G</item>
+        <item>H</item>
+        <item>I</item>
+        <item>J</item>
+        <item>K</item>
+        <item>L</item>
+        <item>M</item>
+        <item>N</item>
+        <item>O</item>
+        <item>P</item>
+        <item>Q</item>
+        <item>R</item>
+        <item>S</item>
+        <item>T</item>
+        <item>U</item>
+        <item>V</item>
+        <item>W</item>
+        <item>X</item>
+        <item>Y</item>
+        <item>Z</item>
+        <item>#</item>
+    </array>
 </resources>

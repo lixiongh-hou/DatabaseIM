@@ -8,6 +8,7 @@
         android:icon="@mipmap/jntm"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/jntm"
+        android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
@@ -18,10 +19,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".home.activity.AddConversationActivity"/>
-        <activity android:name=".home.activity.AddUserActivity"/>
-        <activity android:name=".home.activity.ChatActivity"/>
-        <activity android:name=".SetUpActivity"/>
+        <activity android:name=".home.activity.AddConversationActivity" />
+        <activity android:name=".home.activity.AddUserActivity" />
+        <activity android:name=".home.activity.ChatActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".home.activity.CameraActivity" />
+        <activity android:name=".home.activity.PersonalInformationActivity" />
+        <activity android:name=".SetUpActivity" />
 
 
         <provider
@@ -31,7 +35,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths_public"/>
+                android:resource="@xml/file_paths_public" />
         </provider>
     </application>
 
