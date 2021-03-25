@@ -34,7 +34,7 @@ object ConversationManagerKit {
             try {
                 if (saveLocal) {
                     CommonDatabase.database.runInTransaction {
-                        val it = CommonDatabase.database.conversationDao().queryCount(entity.id)
+                        val it = CommonDatabase.database.conversationDao().queryCount(entity.conversationId)
                         CommonDatabase.database.conversationDao()
                             .save(ConversationEntity.generatePoConversation(entity))
                     }
@@ -69,7 +69,7 @@ object ConversationManagerKit {
                         val poMessage =
                             CommonDatabase.database.messageDao().queryFromUserMessage(it.id)
                         val count = CommonDatabase.database.messageDao().queryCount(it.id)
-                        CommonDatabase.database.conversationDao().updateModifyUnread(count, it.id)
+                        CommonDatabase.database.conversationDao().updateModifyUnread(count, it.conversationId)
                         conversation.add(
                             ConversationEntity(
                                 count,
@@ -131,7 +131,7 @@ object ConversationManagerKit {
             GlobalScope.launch(Dispatchers.IO) {
                 try {
                     CommonDatabase.database.conversationDao()
-                        .updateModifyTop(conversation.top, conversation.id)
+                        .updateModifyTop(conversation.top, conversation.conversationId)
                 } catch (e: Exception) {
                     Log.e("测试", "置顶失败:::$e")
                 }
@@ -155,6 +155,9 @@ object ConversationManagerKit {
 
     }
 
+    /**
+     * 获取数据库中是否存在和对方聊天的会话，没有就生成一条
+     */
     fun getConversationCount(info: QueryEntry, content: String, self: Boolean) {
         GlobalScope.launch(Dispatchers.IO) {
             try {

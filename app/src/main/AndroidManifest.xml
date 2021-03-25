@@ -26,6 +26,8 @@
         <activity android:name=".home.activity.CameraActivity" />
         <activity android:name=".home.activity.PersonalInformationActivity" />
         <activity android:name=".SetUpActivity" />
+        <activity android:name=".mine.activity.ProfileActivity" />
+        <activity android:name=".mine.activity.HeadActivity" />
 
 
         <provider

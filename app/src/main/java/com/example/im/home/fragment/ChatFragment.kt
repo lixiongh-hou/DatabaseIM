@@ -38,10 +38,7 @@ import com.example.im.home.chat.util.MessageUtil
 import com.example.im.home.conversation.ConversationManagerKit
 import com.example.im.home.conversation.entity.ConversationEntity
 import com.example.im.home.model.MessageViewModel
-import com.example.im.util.BackgroundTasks
-import com.example.im.util.EmotionManager
-import com.example.im.util.FileUtil
-import com.example.im.util.SetUpFieldUtil
+import com.example.im.util.*
 import com.example.im.view.PanelAddViewPager
 import com.example.im.view.PanelAddViewPager.Companion.REQUEST_CODE_PHOTO
 import com.example.im.view.PanelAddViewPager.Companion.REQUEST_CODE_VIDEO
@@ -76,6 +73,9 @@ class ChatFragment : BaseFragment<FragmentChatBinding, MessageViewModel>() {
     private var mPopActions: MutableList<PopMenuAction> = ArrayList()
     private var mFaceList: MutableList<EmotionEntity> = ArrayList()
 
+    override fun onBackClickListener() {
+        requireActivity().finish()
+    }
 
     companion object {
         fun instance(info: Serializable) = ChatFragment().apply {
@@ -108,24 +108,25 @@ class ChatFragment : BaseFragment<FragmentChatBinding, MessageViewModel>() {
                 }, SetUpFieldUtil.getField().pullRefreshTime ?: 0L)
             }
             mAdapter?.onMessageLongClick { view, position, messageInfo ->
-                if (TextUtils.isEmpty(messageInfo?.dataPath)) {
-                    showItemPopMenu(position, messageInfo!!, view)
-                    return@onMessageLongClick
-                }
-                Mojito.with(requireContext())
-                    .urls(messageInfo!!.dataPath)
-                    .views(view)
-                    .autoLoadTarget(false)
-                    .setProgressLoader(object : InstanceLoader<IProgress> {
-                        override fun providerInstance(): IProgress {
-                            return DefaultPercentProgress()
-                        }
-                    })
-                    .start()
+//                if (TextUtils.isEmpty(messageInfo?.dataPath)) {
+//                    showItemPopMenu(position, messageInfo!!, view)
+//                    return@onMessageLongClick
+//                }
+                showItemPopMenu(position, messageInfo!!, view)
+//                Mojito.with(requireContext())
+//                    .urls(messageInfo!!.dataPath)
+//                    .views(view)
+//                    .autoLoadTarget(false)
+//                    .setProgressLoader(object : InstanceLoader<IProgress> {
+//                        override fun providerInstance(): IProgress {
+//                            return DefaultPercentProgress()
+//                        }
+//                    })
+//                    .start()
             }
             mAdapter?.onUserIconClick { _, _, messageInfo ->
                 val entity = QueryEntry(
-                    if (messageInfo!!.self) "自己" else info!!.title,
+                    if (messageInfo!!.self) UserUtil.getMyName() else info!!.title,
                     info!!.formUser,
                     messageInfo.faceUrl,
                     info!!.saveLocal

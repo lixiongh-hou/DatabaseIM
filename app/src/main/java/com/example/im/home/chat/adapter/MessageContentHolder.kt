@@ -6,6 +6,7 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import coil.load
+import coil.loadAny
 import coil.transform.RoundedCornersTransformation
 import com.example.im.R
 import com.example.im.home.chat.entity.PoMessageEntity
@@ -43,14 +44,26 @@ abstract class MessageContentHolder(itemView: View) : MessageEmptyHolder(itemVie
             rightUserIcon.visibility = View.GONE
         }
         if (msg.self) {
-            rightUserIcon.load(msg.faceUrl) {
+            rightUserIcon.loadAny(
+                if (msg.faceUrl.startsWith("https://") ||
+                    msg.faceUrl.startsWith("http://")
+                )
+                    msg.faceUrl else
+                    MessageImageHolder.getMediaUriFromPath(rootView.context, msg.faceUrl)!!
+            ) {
                 error(R.drawable.default_head)
                 placeholder(R.drawable.default_head)
                 transformations(RoundedCornersTransformation(10F))
 
             }
         } else {
-            leftUserIcon.load(msg.faceUrl) {
+            leftUserIcon.loadAny(
+                if (msg.faceUrl.startsWith("https://") ||
+                    msg.faceUrl.startsWith("http://")
+                )
+                    msg.faceUrl else
+                    MessageImageHolder.getMediaUriFromPath(rootView.context, msg.faceUrl)!!
+            ) {
                 error(R.drawable.default_head)
                 placeholder(R.drawable.default_head)
                 transformations(RoundedCornersTransformation(10F))
@@ -73,9 +86,17 @@ abstract class MessageContentHolder(itemView: View) : MessageEmptyHolder(itemVie
 
         //设置气泡
         if (msg.self) {
-            msgContentFrame?.background = ViewStyleUtil.getBackground(rootView.context, R.drawable.chat_right_bg, R.color.bubble_color)
-        }else{
-            msgContentFrame?.background = ViewStyleUtil.getBackground(rootView.context, R.drawable.chat_left_bg, R.color.white)
+            msgContentFrame?.background = ViewStyleUtil.getBackground(
+                rootView.context,
+                R.drawable.chat_right_bg,
+                R.color.bubble_color
+            )
+        } else {
+            msgContentFrame?.background = ViewStyleUtil.getBackground(
+                rootView.context,
+                R.drawable.chat_left_bg,
+                R.color.white
+            )
         }
 
         //聊天气泡的点击事件处理
@@ -117,6 +138,7 @@ abstract class MessageContentHolder(itemView: View) : MessageEmptyHolder(itemVie
         // 由子类设置指定消息类型的views
         layoutVariableViews(msg, position)
     }
+
     abstract fun layoutVariableViews(msg: PoMessageEntity?, position: Int)
 
 }

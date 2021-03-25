@@ -45,7 +45,7 @@ data class PoMessageEntity(
     /**
      * 用户头像
      */
-    val faceUrl: String,
+    var faceUrl: String,
     /**
      * 图片或视频宽
      */

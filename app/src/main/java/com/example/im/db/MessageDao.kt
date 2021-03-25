@@ -46,4 +46,10 @@ interface MessageDao {
      */
     @Query("UPDATE message SET msgType=:msgType , status=:status , extra=:extra , chatMessage=:chatMessage WHERE msgId = :msgId")
     fun revokeMessage(msgId: String, msgType: Int, status: Int, extra: String, chatMessage: Boolean)
+
+    /**
+     * 修改自己头像 == 其实在设计数据的时候不用保存存储自己的头像在消息列表中，可以进行格外保存
+     */
+    @Query("UPDATE message SET faceUrl=:faceUrl WHERE self= 1")
+    fun updateSelfHead(faceUrl: String)
 }

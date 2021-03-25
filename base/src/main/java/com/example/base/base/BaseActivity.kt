@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import android.widget.*
+import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -47,6 +48,22 @@ abstract class BaseActivity<Binding : ViewDataBinding> : AppCompatActivity() {
             throw NullPointerException("请在对应的布局中加入”<include layout=\"@layout/title_view\"/>标题布局")
         } else {
             tvTitle.text = title
+            ivTitleBack.setOnClickListener {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    finishAfterTransition()
+                } else {
+                    finish()
+                }
+            }
+        }
+    }
+
+    fun setMyTitle(title: CharSequence, @ColorInt textColor: Int) {
+        if (tvTitle == null) {
+            throw NullPointerException("请在对应的布局中加入”<include layout=\"@layout/title_view\"/>标题布局")
+        } else {
+            tvTitle.text = title
+            tvTitle.setTextColor(textColor)
             ivTitleBack.setOnClickListener {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     finishAfterTransition()

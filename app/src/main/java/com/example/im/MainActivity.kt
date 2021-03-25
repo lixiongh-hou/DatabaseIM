@@ -2,6 +2,7 @@ package com.example.im
 
 import Const
 import android.content.Intent
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -17,7 +18,7 @@ import com.example.im.util.LiveDataBus
 import com.example.im.view.Menu
 
 /**
- * 多少接口回调，怕忘记记一下
+ * 多接口回调，怕忘记记一下
  */
 interface TouchListener {
     fun setOnTouch(ev: MotionEvent?)
@@ -98,10 +99,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 setMyTitle(tabTitle[position])
                 tabView[position].setXPercentage(1 - positionOffset)
                 //做个判断，防止滑动到最后一项出现下标越界
-                if (position >= tabFragment.size - 1) {
-                    return
+                getIvTitleRight().visibility = if (position >= tabFragment.size - 1) {
+                    View.GONE
+                }else{
+                    tabView[position + 1].setXPercentage(positionOffset)
+                    View.VISIBLE
                 }
-                tabView[position + 1].setXPercentage(positionOffset)
             }
         })
 
@@ -112,7 +115,40 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 mMenu.show()
             }
         }
+        Log.e("测试", main(1, 2))
+        Log.e("测试", sum(1, 2))
+        val closure = f1()
+        closure()
+        closure()
+        closure()
     }
+
+    private val main: (Int, Int) -> String = { x, y ->
+        if (x > y) {
+            x.toString()
+        } else {
+            y.toString()
+        }
+    }
+
+    // 转化为匿名函数
+    private var sum = fun(x: Int, y: Int): String {
+        return if (x > y) {
+            y.toString()
+        } else {
+            x.toString()
+        }
+    }
+
+    fun f1(): () -> Unit {
+        var x = 0
+
+        return fun() {
+            x++
+            Log.e("测试", "x = $x")
+        }
+    }
+
 
     /**
      * 更新底部导航栏
@@ -136,7 +172,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             if (requestCode == ADD_CONVERSATION) {
                 val info = data?.getStringExtra(Const.INFO)
                 LiveDataBus.liveDataBus.with<String?>("saveConversation").setValue(info)
-            }else if (requestCode == ADD_UER){
+            } else if (requestCode == ADD_UER) {
                 val info = data?.getStringExtra(Const.INFO)
                 LiveDataBus.liveDataBus.with<String?>("saveContact").setValue(info)
             }

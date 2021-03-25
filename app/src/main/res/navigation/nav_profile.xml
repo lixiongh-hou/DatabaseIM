@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_profile"
+    app:startDestination="@id/nav_profile">
+
+    <fixFragment
+        android:id="@+id/nav_profile"
+        android:name="com.example.im.mine.fragment.ProfileFragment"
+        tools:layout="@layout/fragment_profile">
+
+        <action
+            android:id="@+id/navEditName"
+            app:destination="@id/nav_edit_name"
+            app:enterAnim="@anim/h_fragment_enter"
+            app:exitAnim="@anim/h_fragment_exit"
+            app:popEnterAnim="@anim/h_fragment_pop_enter"
+            app:popExitAnim="@anim/h_fragment_pop_exit" />
+    </fixFragment>
+
+
+    <fixFragment
+        android:id="@+id/nav_edit_name"
+        android:name="com.example.im.mine.fragment.EditNameFragment"
+        tools:layout="@layout/fragment_edit_name"/>
+
+</navigation>

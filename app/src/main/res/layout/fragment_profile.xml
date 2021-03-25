@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.example.im.mine.fragment.ProfileFragment" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/chat_background_color"
+        android:orientation="vertical"
+        tools:context=".mine.fragment.ProfileFragment">
+
+        <include layout="@layout/title_view" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:onClick="@{()->fragment.changeHead()}"
+                android:paddingHorizontal="@dimen/dp15"
+                android:paddingVertical="@dimen/dp10">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="头像"
+                    android:textColor="@color/black_font_color"
+                    android:textSize="@dimen/sp17" />
+
+                <ImageView
+                    android:id="@+id/head"
+                    android:layout_width="@dimen/dp60"
+                    android:layout_height="@dimen/dp60"
+                    android:onClick="@{()->fragment.lookHead()}" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp18"
+                    android:layout_height="@dimen/dp18"
+                    android:rotation="180"
+                    android:src="@drawable/ic_return"
+                    app:tint="@color/black_font_color100" />
+            </LinearLayout>
+
+            <View
+                style="@style/dividing_line"
+                android:layout_marginStart="@dimen/dp15" />
+
+            <com.example.im.view.CommonLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp55"
+                app:common_content="李雄厚"
+                app:common_title="昵称" />
+
+            <View
+                style="@style/dividing_line"
+                android:layout_marginStart="@dimen/dp15" />
+
+            <com.example.im.view.CommonLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp55"
+                app:common_content="脸，说给俺来一首"
+                app:common_title="拍一拍" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

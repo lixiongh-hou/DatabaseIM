@@ -3,7 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="com.example.im.util.UserUtil" />
+
+        <variable
+            name="fragment"
+            type="com.example.im.mine.fragment.MineFragment" />
     </data>
 
     <LinearLayout
@@ -21,10 +26,10 @@
             android:paddingVertical="@dimen/dp15">
 
             <ImageView
-                fillet="@{true}"
-                url="@{UserUtil.getMyHead()}"
+                android:id="@+id/head"
                 android:layout_width="@dimen/dp60"
-                android:layout_height="@dimen/dp60" />
+                android:layout_height="@dimen/dp60"
+                android:onClick="@{()->fragment.switchAvatar()}" />
 
             <TextView
                 android:layout_width="wrap_content"

@@ -28,6 +28,7 @@ object UserUtil {
         return name
     }
 
+    @JvmStatic
     fun setMyName(name: String) {
         this.name = name
     }

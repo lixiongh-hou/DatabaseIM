@@ -12,17 +12,13 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
-import coil.load
-import coil.transform.RoundedCornersTransformation
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.example.base.base.BaseApp
-import com.example.base.utli.ToastUtil.toast
 import com.example.im.R
 import com.example.im.home.chat.entity.PoMessageEntity
-import net.mikaelzero.mojito.Mojito
-import net.mikaelzero.mojito.impl.CircleIndexIndicator
-import net.mikaelzero.mojito.impl.DefaultPercentProgress
-import net.mikaelzero.mojito.interfaces.IProgress
-import net.mikaelzero.mojito.loader.InstanceLoader
 
 
 private const val DEFAULT_MAX_SIZE = 540
@@ -38,6 +34,14 @@ class MessageImageHolder(itemView: View) : MessageContentHolder(itemView) {
     private var contentImage: ImageView? = null
     private var videoPlayBtn: ImageView? = null
     private var videoDurationText: TextView? = null
+
+    private val normalOptions: RequestOptions = RequestOptions.bitmapTransform(RoundedCorners(10))
+        .error(R.drawable.default_head)
+        .placeholder(R.drawable.default_head)
+        .dontAnimate()
+        .skipMemoryCache(true)
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
+
     override fun layoutVariableViews(msg: PoMessageEntity?, position: Int) {
         msgContentFrame?.background = null
         when (msg?.msgType) {
@@ -59,13 +63,23 @@ class MessageImageHolder(itemView: View) : MessageContentHolder(itemView) {
         resetParentLayout()
         videoPlayBtn?.visibility = View.GONE
         videoDurationText?.visibility = View.GONE
-        contentImage?.load(getMediaUriFromPath(BaseApp.instance, msg.dataPath)) {
-            placeholder(R.drawable.default_head)
-            error(R.drawable.default_head)
-            transformations(RoundedCornersTransformation(8F))
+
+            Glide.with(BaseApp.instance).load(msg.dataPath) //图片地址
+                .apply(normalOptions)
+                .into(contentImage!!)
+        // TODO 这个框架会在滑动到图片时候出现卡顿
+//        contentImage?.load(getMediaUriFromPath(BaseApp.instance, msg.dataPath)) {
+//            placeholder(R.drawable.default_head)
+//            error(R.drawable.default_head)
+//            transformations(RoundedCornersTransformation(8F))
+//        }
+
+        contentImage?.setOnClickListener {
+
         }
-        msgContentFrame?.setOnClickListener {
+        contentImage?.setOnLongClickListener {
             messageLongClick?.invoke(it, position, msg)
+            true
         }
     }
 
@@ -123,19 +137,29 @@ class MessageImageHolder(itemView: View) : MessageContentHolder(itemView) {
 
         videoPlayBtn?.visibility = View.VISIBLE
         videoDurationText?.visibility = View.VISIBLE
-        contentImage?.load(firstBitmap(msg.dataPath)) {
-            placeholder(R.drawable.default_head)
-            error(R.drawable.default_head)
-            transformations(RoundedCornersTransformation(8F))
-        }
+
+        Glide.with(BaseApp.instance).load(msg.dataPath) //图片地址
+            .apply(normalOptions)
+            .into(contentImage!!)
+        // TODO 这个框架会在滑动到图片时候出现卡顿
+//        contentImage?.load(firstBitmap(msg.dataPath)) {
+//            placeholder(R.drawable.default_head)
+//            error(R.drawable.default_head)
+//            transformations(RoundedCornersTransformation(8F))
+//        }
         var durations = "00:" + duration(msg.dataPath) / 1000
         if (duration(msg.dataPath) < 10) {
             durations = "00:0" + duration(msg.dataPath)
         }
         videoDurationText?.text = durations
 
-        msgContentFrame?.setOnClickListener {
+        contentImage?.setOnClickListener {
 
+        }
+
+        contentImage?.setOnLongClickListener {
+            messageLongClick?.invoke(it, position, msg)
+            true
         }
     }
 

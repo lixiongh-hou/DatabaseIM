@@ -17,7 +17,7 @@
 
     <!-- 线 -->
     <color name="chat_title_line_color">#E6E6E6</color>
-    <color name="input_title_line_color">#D2D2D2</color>
+    <color name="input_title_line_color">#D4D4D4</color>
 
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>

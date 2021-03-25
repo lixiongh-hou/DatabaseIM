@@ -1,17 +1,10 @@
 package com.example.im.contact.fragment
 
-import android.content.Intent
 import androidx.lifecycle.Observer
 import com.example.base.base.BaseFragment
-import com.example.base.base.adapter.BaseAdapter
-import com.example.im.adapter.ContactAdapter
 import com.example.im.contact.entity.PoContactEntity
 import com.example.im.contact.model.ContactViewModel
 import com.example.im.databinding.FragmentNewsletterBinding
-import com.example.im.home.activity.ChatActivity
-import com.example.im.home.chat.entity.QueryEntry
-import com.example.im.home.conversation.ConversationManagerKit
-import com.example.im.home.conversation.entity.ConversationEntity
 import com.example.im.util.LiveDataBus
 import com.google.gson.Gson
 

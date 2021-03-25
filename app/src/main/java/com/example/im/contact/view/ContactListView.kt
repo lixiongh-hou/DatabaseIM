@@ -93,11 +93,25 @@ class ContactListView @JvmOverloads constructor(
         Log.e("测试", Gson().toJson(mData))
 
         mAdapter.clickEvent = { data, _, _ ->
-            val entity = QueryEntry(data.getNickname(), data.getId(), data.getAvatar(), data.saveLocal)
-            Log.e("测试", Gson().toJson(entity))
-            val intent = Intent(context, ChatActivity::class.java)
-            intent.putExtra(Const.INFO, entity)
-            context.startActivity(intent)
+            when(data.getNickname()){
+                resources.getString(R.string.new_friend) -> {
+
+                }
+                resources.getString(R.string.group) -> {
+
+                }
+                resources.getString(R.string.blacklist) -> {
+
+                }
+                else -> {
+                    val entity = QueryEntry(data.getNickname(), data.getId(), data.getAvatar(), data.saveLocal)
+                    Log.e("测试", Gson().toJson(entity))
+                    val intent = Intent(context, ChatActivity::class.java)
+                    intent.putExtra(Const.INFO, entity)
+                    context.startActivity(intent)
+                }
+            }
+
         }
     }
 }

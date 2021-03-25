@@ -11,6 +11,7 @@ import com.example.im.home.chat.entity.PoMessageEntity
 import com.example.im.home.conversation.ConversationManagerKit
 import com.example.im.home.conversation.entity.ConversationEntity
 import com.example.im.util.SetUpFieldUtil
+import com.example.im.util.UserUtil
 import com.google.gson.Gson
 import kotlinx.coroutines.*
 import java.util.*
@@ -28,6 +29,9 @@ object ChatManagerKit {
         mProvider = ChatProvider()
     }
 
+    /**
+     * 加载所有消息
+     */
     fun loadConversation(
         page: String, id: String, first: Boolean,
         success: (PageResponse<PoMessageEntity>) -> Unit,
@@ -58,6 +62,11 @@ object ChatManagerKit {
                 }
                 success.invoke(response!!)
                 response!!.lists.reverse()
+//                response!!.lists.forEach {
+//                    if (it.self){
+//                        it.faceUrl = UserUtil.getMyHead()
+//                    }
+//                }
                 mProvider?.addMessageList(response!!.lists, true)
                 if (first) {
                     callBack.invoke(mProvider!!)
@@ -68,6 +77,9 @@ object ChatManagerKit {
         }
     }
 
+    /**
+     * 保存一条消息
+     */
     fun saveMessage(entity: PoMessageEntity, retry: Boolean, saveLocal: Boolean) {
         GlobalScope.launch(Dispatchers.IO) {
             if (entity.msgType < PoMessageEntity.MSG_TYPE_TIPS) {
@@ -100,6 +112,9 @@ object ChatManagerKit {
         }
     }
 
+    /**
+     * 删除某个消息
+     */
     fun deleteMessage(position: Int, message: PoMessageEntity) {
         Log.e("测试", "删除一条消息，位置${position}，数据：" + Gson().toJson(message))
         GlobalScope.launch(Dispatchers.IO) {
@@ -115,6 +130,9 @@ object ChatManagerKit {
         }
     }
 
+    /**
+     * 撤销某个消息
+     */
     fun revokeMessage(position: Int, message: PoMessageEntity) {
         Log.e("测试", "撤销消息，位置${position}，数据：" + Gson().toJson(message))
         GlobalScope.launch(Dispatchers.IO) {
@@ -141,6 +159,19 @@ object ChatManagerKit {
                 }
             } catch (e: Exception) {
                 Log.e("测试", "删除消息失败:::$e")
+            }
+        }
+    }
+
+    /**
+     * 更新数据库中自己的头像
+     */
+    fun updateSelfHead(head: String){
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                CommonDatabase.database.messageDao().updateSelfHead(head)
+            }catch (e: Exception){
+                Log.e("测试", "自我头像更新失败$e")
             }
         }
     }
